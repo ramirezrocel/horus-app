@@ -9,10 +9,10 @@
     overflow: scroll;
     background-color: themed("bgSoft");
 
-    @include mobile{
+    @include mobile {
       display: none;
     }
-    @include tablet{
+    @include tablet {
       display: none;
     }
 
@@ -86,11 +86,11 @@
               cursor: pointer;
 
               &:first-child {
-                background-color: #5271ff;
+                background-color: #c08e21;
               }
 
               &:last-child {
-                background-color: #f0544f;
+                background-color: #472906;
               }
             }
           }

@@ -2,26 +2,26 @@ import "./share.scss";
 import Image from "../../assets/img.png";
 import Map from "../../assets/map.png";
 import Friend from "../../assets/friend.png";
+import * as authService from "../../services/auth";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 
 const Share = () => {
-
-  const {currentUser} = useContext(AuthContext)
+  const currentUser = authService.getCurrentUser();
   return (
     <div className="share">
       <div className="container">
         <div className="top">
-          <img
-            src={currentUser.profilePic}
-            alt=""
+          <img src={currentUser.profilePic} alt="" />
+          <input
+            type="text"
+            placeholder={`What's on your mind ${currentUser.name}?`}
           />
-          <input type="text" placeholder={`What's on your mind ${currentUser.name}?`} />
         </div>
         <hr />
         <div className="bottom">
           <div className="left">
-            <input type="file" id="file" style={{display:"none"}} />
+            <input type="file" id="file" style={{ display: "none" }} />
             <label htmlFor="file">
               <div className="item">
                 <img src={Image} alt="" />

@@ -10,9 +10,9 @@ export declare class PostController {
     update(id: string, updatePostDto: UpdatePostDto, req: any): Promise<import("./entities/post.entity").Post>;
     remove(id: string, req: any): Promise<{
         id: number;
-        title: string;
-        completed: boolean;
         userId: number;
+        value: string;
+        postImageURL: string;
         user: import("../user/entities/user.entity").User;
     }>;
 }

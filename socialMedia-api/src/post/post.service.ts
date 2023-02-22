@@ -1,8 +1,8 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-import { Post } from './entities/post.entity';
+import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
+import { Repository } from "typeorm";
+import { CreatePostDto } from "./dto/create-post.dto";
+import { UpdatePostDto } from "./dto/update-post.dto";
+import { Post } from "./entities/post.entity";
 
 @Injectable()
 export class PostService {
@@ -13,14 +13,14 @@ export class PostService {
   }
 
   constructor(
-    @Inject('POST_REPOSITORY')
-    private postRepository: Repository<Post>,
+    @Inject("POST_REPOSITORY")
+    private postRepository: Repository<Post>
   ) {}
 
   async create(createPostDto: CreatePostDto) {
     const post = new Post();
-    post.title = createPostDto.title;
-    post.completed = false;
+    post.value = createPostDto.value;
+    post.postImageURL = createPostDto.postImageURL;
     post.userId = this._currentUserId;
 
     return this.postRepository.save(post);
@@ -29,7 +29,7 @@ export class PostService {
   async findAllAdmin(): Promise<Post[]> {
     return this.postRepository.find({
       order: {
-        id: 'DESC',
+        id: "DESC",
       },
     });
   }
@@ -38,7 +38,7 @@ export class PostService {
     return this.postRepository.find({
       where: { userId: this._currentUserId },
       order: {
-        id: 'DESC',
+        id: "DESC",
       },
     });
   }
@@ -53,18 +53,17 @@ export class PostService {
       userId: this._currentUserId,
     });
     if (!post) {
-      throw new HttpException('Resource not found.', HttpStatus.NOT_FOUND);
+      throw new HttpException("Resource not found.", HttpStatus.NOT_FOUND);
     }
 
-    if (updatePostDto.title === '') {
+    if (updatePostDto.title === "") {
       throw new HttpException(
-        { message: ['title cannot be empty'] },
-        HttpStatus.BAD_REQUEST,
+        { message: ["title cannot be empty"] },
+        HttpStatus.BAD_REQUEST
       );
     }
 
-    post.completed = updatePostDto.completed ?? post.completed;
-    post.title = updatePostDto.title ?? post.title;
+    post.value = updatePostDto.title ?? post.value;
 
     await this.postRepository.save(post);
 
@@ -77,7 +76,7 @@ export class PostService {
       userId: this._currentUserId,
     });
     if (!post) {
-      throw new HttpException('Resource not found.', HttpStatus.NOT_FOUND);
+      throw new HttpException("Resource not found.", HttpStatus.NOT_FOUND);
     }
 
     await this.postRepository.remove(post);

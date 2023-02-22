@@ -1,7 +1,9 @@
-import { IsNotEmpty, Length } from 'class-validator';
+import { IsNotEmpty, Length } from "class-validator";
 
 export class CreatePostDto {
   @IsNotEmpty()
   @Length(3)
-  title: string;
+  value: string;
+
+  postImageURL: string;
 }

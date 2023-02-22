@@ -26,15 +26,15 @@ let PostService = class PostService {
     }
     async create(createPostDto) {
         const post = new post_entity_1.Post();
-        post.title = createPostDto.title;
-        post.completed = false;
+        post.value = createPostDto.value;
+        post.postImageURL = createPostDto.postImageURL;
         post.userId = this._currentUserId;
         return this.postRepository.save(post);
     }
     async findAllAdmin() {
         return this.postRepository.find({
             order: {
-                id: 'DESC',
+                id: "DESC",
             },
         });
     }
@@ -42,7 +42,7 @@ let PostService = class PostService {
         return this.postRepository.find({
             where: { userId: this._currentUserId },
             order: {
-                id: 'DESC',
+                id: "DESC",
             },
         });
     }
@@ -50,19 +50,18 @@ let PostService = class PostService {
         return this.postRepository.findOne({ id, userId: this._currentUserId });
     }
     async update(id, updatePostDto) {
-        var _a, _b;
+        var _a;
         let post = await this.postRepository.findOne({
             id,
             userId: this._currentUserId,
         });
         if (!post) {
-            throw new common_1.HttpException('Resource not found.', common_1.HttpStatus.NOT_FOUND);
+            throw new common_1.HttpException("Resource not found.", common_1.HttpStatus.NOT_FOUND);
         }
-        if (updatePostDto.title === '') {
-            throw new common_1.HttpException({ message: ['title cannot be empty'] }, common_1.HttpStatus.BAD_REQUEST);
+        if (updatePostDto.title === "") {
+            throw new common_1.HttpException({ message: ["title cannot be empty"] }, common_1.HttpStatus.BAD_REQUEST);
         }
-        post.completed = (_a = updatePostDto.completed) !== null && _a !== void 0 ? _a : post.completed;
-        post.title = (_b = updatePostDto.title) !== null && _b !== void 0 ? _b : post.title;
+        post.value = (_a = updatePostDto.title) !== null && _a !== void 0 ? _a : post.value;
         await this.postRepository.save(post);
         return post;
     }
@@ -72,7 +71,7 @@ let PostService = class PostService {
             userId: this._currentUserId,
         });
         if (!post) {
-            throw new common_1.HttpException('Resource not found.', common_1.HttpStatus.NOT_FOUND);
+            throw new common_1.HttpException("Resource not found.", common_1.HttpStatus.NOT_FOUND);
         }
         await this.postRepository.remove(post);
         return Object.assign(Object.assign({}, post), { id });
@@ -80,7 +79,7 @@ let PostService = class PostService {
 };
 PostService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, common_1.Inject)('POST_REPOSITORY')),
+    __param(0, (0, common_1.Inject)("POST_REPOSITORY")),
     __metadata("design:paramtypes", [typeorm_1.Repository])
 ], PostService);
 exports.PostService = PostService;

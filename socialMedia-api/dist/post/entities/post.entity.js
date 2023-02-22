@@ -20,16 +20,16 @@ __decorate([
 ], Post.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Post.prototype, "title", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Boolean)
-], Post.prototype, "completed", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
     __metadata("design:type", Number)
 ], Post.prototype, "userId", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Post.prototype, "value", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Post.prototype, "postImageURL", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.posts),
     __metadata("design:type", user_entity_1.User)

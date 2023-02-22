@@ -19,6 +19,7 @@ PostModule = __decorate([
         imports: [database_module_1.DatabaseModule],
         controllers: [post_controller_1.PostController],
         providers: [...post_providers_1.postProviders, post_service_1.PostService],
+        exports: [post_service_1.PostService],
     })
 ], PostModule);
 exports.PostModule = PostModule;

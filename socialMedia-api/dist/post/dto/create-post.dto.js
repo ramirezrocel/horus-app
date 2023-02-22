@@ -17,6 +17,6 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.Length)(3),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "title", void 0);
+], CreatePostDto.prototype, "value", void 0);
 exports.CreatePostDto = CreatePostDto;
 //# sourceMappingURL=create-post.dto.js.map

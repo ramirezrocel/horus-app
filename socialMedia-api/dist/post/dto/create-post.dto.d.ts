@@ -1,3 +1,4 @@
 export declare class CreatePostDto {
-    title: string;
+    value: string;
+    postImageURL: string;
 }

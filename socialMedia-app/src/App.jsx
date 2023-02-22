@@ -48,7 +48,7 @@ function App() {
         <Navbar />
         <div style={{ display: "flex" }}>
           <LeftBar />
-          <div style={{ flex: 6 }}>{/* <Outlet /> */}</div>
+          <div style={{ flex: 6 }}>{<Outlet />}</div>
           <RightBar />
         </div>
       </div>
@@ -57,17 +57,16 @@ function App() {
 
   return (
     <>
-      {accessToken ? <Layout /> : ""}
       <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
         <Route
-          path="/home"
-          element={accessToken ? <Home /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/profile/:id"
-          element={accessToken ? <Profile /> : <Navigate to="/login" />}
-        />
+          path="/"
+          element={accessToken ? <Layout /> : <Navigate to="/login" />}
+        >
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile/:id" element={<Profile />} />
+        </Route>
+
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/not-found" element={<NotFound />} />

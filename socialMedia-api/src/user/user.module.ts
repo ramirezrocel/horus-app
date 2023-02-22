@@ -1,14 +1,13 @@
-import { Module } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserController } from './user.controller';
-import { DatabaseModule } from 'src/database/database.module';
-import { userProviders } from './providers/user.providers';
-import { todoProviders } from '../todo/providers/todo.providers';
+import { Module } from "@nestjs/common";
+import { UserService } from "./user.service";
+import { UserController } from "./user.controller";
+import { DatabaseModule } from "src/database/database.module";
+import { userProviders } from "./providers/user.providers";
 
 @Module({
   imports: [DatabaseModule],
   controllers: [UserController],
-  providers: [...userProviders, ...todoProviders, UserService],
+  providers: [...userProviders, UserService],
   exports: [UserService],
 })
 export class UserModule {}

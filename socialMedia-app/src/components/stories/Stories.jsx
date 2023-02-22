@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/authContext";
 import * as authService from "../../services/auth";
 
 const Stories = () => {
-  const { currentUser } = authService.getCurrentUser();
+  const currentUser = authService.getCurrentUser();
 
   //TEMPORARY
   const stories = [

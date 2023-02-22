@@ -1,0 +1,119 @@
+body {
+  background-color: rgb(193, 190, 255);
+  overflow: scroll;
+}
+
+.register {
+  height: 100vh;
+  background-color: rgb(193, 190, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .card {
+    width: 50%;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 600px;
+    overflow: hidden;
+
+    .left {
+      flex: 1;
+      background: linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
+        url("https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600")
+          center;
+      background-size: cover;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      color: white;
+
+      h1 {
+        font-size: 100px;
+        line-height: 100px;
+      }
+
+      p {
+      }
+
+      span {
+        font-size: 14px;
+      }
+
+      button {
+        width: 50%;
+        padding: 10px;
+        border: none;
+        background-color: white;
+        color: rebeccapurple;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+
+    .right {
+      flex: 1;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      justify-content: center;
+
+      h1 {
+        color: #555;
+      }
+
+      .register-header {
+        display: flex;
+        justify-content: center;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        input {
+          border: none;
+          border-bottom: 1px solid lightgray;
+          padding: 20px 10px;
+          margin-bottom: 0px;
+          width: 100%;
+        }
+
+        button {
+          width: 100%;
+          padding: 10px;
+          border: none;
+          background-color: #938eef;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+        }
+
+        .text-error {
+          font-size: x-small;
+          position: absolute;
+          color: red;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1079px) {
+  .register {
+    height: 87vh;
+    margin-bottom: 20rem;
+  }
+  .register .card {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20rem;
+    position: absolute;
+  }
+}

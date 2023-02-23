@@ -8,6 +8,7 @@ import { AuthContext } from "../../context/authContext";
 
 const Share = () => {
   const currentUser = authService.getCurrentUser();
+  //Testing for commit
   return (
     <div className="share">
       <div className="container">

@@ -1,13 +1,24 @@
-import { IsNotEmpty } from 'class-validator';
+import {
+  Contains,
+  IsEmail,
+  IsNotEmpty,
+  MaxLength,
+  MinLength,
+} from "class-validator";
+import { Unique } from "typeorm";
 
 export class CreateUserDto {
   @IsNotEmpty()
+  @MinLength(5)
+  @MaxLength(15)
   name: string;
 
   @IsNotEmpty()
+  @IsEmail()
   email: string;
 
   @IsNotEmpty()
+  @MaxLength(50)
   username: string;
 
   @IsNotEmpty()

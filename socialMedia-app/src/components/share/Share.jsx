@@ -1,7 +1,7 @@
 import "./share.scss";
-import Image from "../../assets/img.png";
-import Map from "../../assets/map.png";
-import Friend from "../../assets/friend.png";
+import Image from "../../assets/add-image.png";
+import Map from "../../assets/add-location.png";
+import Friend from "../../assets/add-friend.png";
 import * as authService from "../../services/auth";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";

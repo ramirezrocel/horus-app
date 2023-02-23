@@ -860,7 +860,9 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     let user = await this.userRepository.findOne({
-      where: { username: createUserDto.username },
+      where: { username: createUserDto.username } || {
+        email: createUserDto.email,
+      },
     });
 
     if (user) {

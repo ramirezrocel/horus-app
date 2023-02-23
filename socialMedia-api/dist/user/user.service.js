@@ -839,7 +839,9 @@ let UserService = class UserService {
     }
     async create(createUserDto) {
         let user = await this.userRepository.findOne({
-            where: { username: createUserDto.username },
+            where: { username: createUserDto.username } || {
+                email: createUserDto.email,
+            },
         });
         if (user) {
             throw new common_1.HttpException("Username already exists.", common_1.HttpStatus.BAD_REQUEST);

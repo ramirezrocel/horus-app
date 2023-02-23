@@ -85,9 +85,14 @@
               padding: 5px;
               color: white;
               cursor: pointer;
+              border-radius: 5px;
+
+              &:active {
+                box-shadow: 2px 2px 5px #4e4516;
+              }
 
               &:first-child {
-                background-color: #c08e21;
+                background-color: #d9ad2a;
               }
 
               &:last-child {

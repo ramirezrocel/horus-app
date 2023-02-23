@@ -5,20 +5,18 @@ const Posts = () => {
   const posts = [
     {
       id: 1,
-      name: "John Doe",
+      name: "YouMadBro",
       userId: 1,
-      profilePic:
-        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-      img: "https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      profilePic: "./pictures/mad.png",
+      desc: "Who wants to join? Just message me!",
+      img: "./pictures/became.jpg",
     },
     {
       id: 2,
-      name: "Jane Doe",
+      name: "JuanWick",
       userId: 2,
-      profilePic:
-        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      desc: "Tenetur iste voluptates dolorem rem commodi voluptate pariatur, voluptatum, laboriosam consequatur enim nostrum cumque! Maiores a nam non adipisci minima modi tempore.",
+      profilePic: "./pictures/juan.jpg",
+      desc: "The game has its ups and downs, but you can never lose focus of your individual goals and you can let yourself e beaten because of lack of effort.",
     },
   ];
 

@@ -13,7 +13,7 @@ const Posts = () => {
     },
     {
       id: 2,
-      name: "RedDawn",
+      name: "Red",
       userId: 2,
       profilePic: "./pictures/red.png",
       desc: "I'm the hero of a thousand stories. I'm a superhero, an assassin a soldier. I've slain dragons and traveled through portals. I am a spartan, a commander. A king. I've saved a thousand worlds and countless more lives. What am I? I'm a gamer.",

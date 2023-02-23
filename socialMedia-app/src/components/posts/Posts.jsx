@@ -5,7 +5,7 @@ const Posts = () => {
   const posts = [
     {
       id: 1,
-      name: "Ashley",
+      name: "LegendOfDoom",
       userId: 1,
       profilePic: "./pictures/legend.jpg",
       desc: "Who wants to join? Just message me!",
@@ -13,7 +13,7 @@ const Posts = () => {
     },
     {
       id: 2,
-      name: "Red",
+      name: "RedDawn",
       userId: 2,
       profilePic: "./pictures/red.png",
       desc: "I'm the hero of a thousand stories. I'm a superhero, an assassin a soldier. I've slain dragons and traveled through portals. I am a spartan, a commander. A king. I've saved a thousand worlds and countless more lives. What am I? I'm a gamer.",

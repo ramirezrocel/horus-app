@@ -85,13 +85,14 @@
               padding: 5px;
               color: white;
               cursor: pointer;
+              border-radius: 10%;
 
               &:first-child {
-                background-color: #c08e21;
+                background-color: #e7af13;
               }
 
               &:last-child {
-                background-color: #472906;
+                background-color: #854c0b;
               }
             }
           }

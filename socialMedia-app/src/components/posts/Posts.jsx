@@ -5,7 +5,7 @@ const Posts = () => {
   const posts = [
     {
       id: 1,
-      name: "LegendOfDoom",
+      name: "Ashley",
       userId: 1,
       profilePic: "./pictures/legend.jpg",
       desc: "Who wants to join? Just message me!",

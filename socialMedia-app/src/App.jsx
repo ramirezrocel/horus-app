@@ -42,10 +42,17 @@ function App() {
     }
   };
 
+  // console.log(authService.getCurrentUser());
+  const handleLogout = () => {
+    authService.logout();
+    setAccessToken(null);
+    navigate("/login");
+  };
+
   const Layout = () => {
     return (
       <div className={`theme-${darkMode ? "dark" : "light"}`}>
-        <Navbar />
+        <Navbar onLogout={handleLogout} />
         <div style={{ display: "flex" }}>
           <LeftBar />
           <div style={{ flex: 6 }}>{<Outlet />}</div>

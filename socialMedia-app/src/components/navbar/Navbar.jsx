@@ -14,7 +14,7 @@ import { DarkModeContext } from "../../context/darkModeContext";
 // import { AuthContext } from "../../context/authContext";
 import * as authService from "../../services/auth";
 
-const Navbar = () => {
+const Navbar = ({ onLogout }) => {
   const { toggle, darkMode } = useContext(DarkModeContext);
   // const { currentUser } = useContext(AuthContext);
   const currentUser = authService.getCurrentUser();
@@ -41,7 +41,9 @@ const Navbar = () => {
         <HomeOutlinedIcon />
 
         <EmailOutlinedIcon />
-        <Button href="/login">Logout</Button>
+        <Button href="/login" onClick={onLogout}>
+          Logout
+        </Button>
         <div className="user">
           {/* <img src={currentUser.profilePic} alt="" /> */}
           {/* <span>{currentUser.name}</span> */}

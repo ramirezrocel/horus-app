@@ -22,6 +22,35 @@
 
     .container {
       padding: 20px;
+      .livestream {
+        height: 150px;
+        width: 270px;
+        border-radius: 20px;
+        margin-bottom: 15px;
+        &:hover {
+          // transform: scale(1.1);
+          // -moz-transform: scale(1.1);
+          // -webkit-transform: scale(1.1);
+          // -o-transform: scale(1.1);
+          box-shadow: 0px 2px 2px 2px rgba(210, 184, 97, 0.5);
+          transform: translateY(-5px);
+        }
+      }
+      .games {
+        height: 120px;
+        width: 230px;
+        border-radius: 20px;
+        margin-bottom: 3px;
+        margin-top: 10px;
+        &:hover {
+          // transform: scale(1.1);
+          // -moz-transform: scale(1.1);
+          // -webkit-transform: scale(1.1);
+          // -o-transform: scale(1.1);
+          box-shadow: 0px 2px 2px 2px rgba(210, 184, 97, 0.5);
+          transform: translateY(-5px);
+        }
+      }
 
       .item {
         -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);

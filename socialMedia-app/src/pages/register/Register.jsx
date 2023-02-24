@@ -13,6 +13,7 @@ const Register = () => {
     name: "",
     email: "",
     username: "",
+    imageUrl: "",
     password: "",
   });
 
@@ -24,6 +25,7 @@ const Register = () => {
     name: Joi.string().required(),
     username: Joi.string().required(),
     password: Joi.string().required(),
+    imageUrl: Joi.string(),
   });
 
   const handleSubmit = async (event) => {
@@ -33,7 +35,8 @@ const Register = () => {
         form.name,
         form.email,
         form.username,
-        form.password
+        form.password,
+        form.imageUrl
       );
       alert("Registration successful");
       navigate("/login");
@@ -137,6 +140,21 @@ const Register = () => {
                 required
               />
               <p className="text-error">{errors.password}</p>
+            </div>
+            <div>
+              <label>
+                <small>
+                  Profile <i>(Optional)</i>
+                </small>
+              </label>
+              <input
+                name="imageUrl"
+                onChange={handleChange}
+                value={form.imageUrl}
+                type="text"
+                placeholder="Image Url"
+              />
+              <p className="text-error">{errors.imageUrl}</p>
             </div>
 
             <button disabled={isFormInvalid()} type="submit">

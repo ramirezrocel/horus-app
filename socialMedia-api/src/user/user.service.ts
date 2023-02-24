@@ -882,8 +882,13 @@ export class UserService {
 
     const saltOrRounds = 10;
     user.password = await bcrypt.hash(createUserDto.password, saltOrRounds);
-    user.imageUrl =
-      "https://www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png";
+
+    if (createUserDto.imageUrl == "") {
+      user.imageUrl =
+        "https://www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png";
+    } else {
+      user.imageUrl = createUserDto.imageUrl;
+    }
 
     user = await this.userRepository.save(user);
 

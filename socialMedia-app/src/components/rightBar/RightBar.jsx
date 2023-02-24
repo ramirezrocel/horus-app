@@ -5,8 +5,14 @@ const RightBar = () => {
     <div className="rightBar">
       <div className="container">
         <div className="item">
-          <span>Pending Invites</span>
-          <div className="user">
+          <span>Recommended Games</span>
+          <a href="https://valorantesports.com/schedule">
+            <img className="games" src="./pictures/valorant.jpg"></img>
+          </a>
+          <a href="https://www.dota2.com/home">
+            <img className="games" src="./pictures/dota.jpg"></img>
+          </a>
+          {/* <div className="user">
             <div className="userInfo">
               <img src="./pictures/firestarter.jpg" alt="" />
               <span>FireStarter</span>
@@ -25,38 +31,13 @@ const RightBar = () => {
               <button>Accept</button>
               <button>Ignore</button>
             </div>
-          </div>
+          </div> */}
         </div>
-        <div className="item">
-          <span>Recently Played With</span>
-          <div className="user">
-            <div className="userInfo">
-              <img src="./pictures/dora.jpg" alt="" />
-              <p>
-                <span>TheDestroyer</span>
-              </p>
-            </div>
-            <span>1 min ago</span>
-          </div>
-          <div className="user">
-            <div className="userInfo">
-              <img src="./pictures/star.jpg" alt="" />
-              <p>
-                <span>StarFighter</span>
-              </p>
-            </div>
-            <span>2 hrs ago</span>
-          </div>
-          <div className="user">
-            <div className="userInfo">
-              <img src="./pictures/lorax.jpg" alt="" />
-              <p>
-                <span>TheLorax</span>
-              </p>
-            </div>
-            <span>3 hrs ago</span>
-          </div>
-        </div>
+
+        <a href="https://www.youtube.com/results?search_query=gaming+website+reacthttps://www.youtube.com/gaming">
+          <img className="livestream" src="./pictures/livestream.jpg"></img>
+        </a>
+
         <div className="item">
           <span>Online Friends</span>
           <div className="user">

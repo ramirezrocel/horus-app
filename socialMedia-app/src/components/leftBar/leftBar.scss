@@ -9,8 +9,11 @@
     overflow: scroll;
     background-color: themed("bg");
     color: themed("textColor");
+    border-radius: 20px;
+    margin-top: 15px;
+    margin-left: 10px;
 
-    @include mobile{
+    @include mobile {
       display: none;
     }
 
@@ -32,6 +35,11 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+
+        .games {
+          height: 40px;
+          width: 40px;
+        }
 
         span {
           font-size: 12px;

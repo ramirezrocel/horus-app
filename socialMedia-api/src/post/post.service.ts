@@ -36,7 +36,7 @@ export class PostService {
 
   async findAll(): Promise<Post[]> {
     return this.postRepository.find({
-      where: { userId: this._currentUserId },
+      // where: { userId: this._currentUserId },
       order: {
         id: "DESC",
       },

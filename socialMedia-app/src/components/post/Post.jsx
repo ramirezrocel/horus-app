@@ -6,26 +6,37 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import * as userService from "../../services/user";
 
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
-
+  const [user, setUser] = useState({});
   //TEMPORARY
   const liked = false;
+
+  useEffect(() => {
+    userService.fetchUser(post.userId).then((response) => {
+      setUser(response.data);
+    });
+  }, []);
+
+  // console.log(username);
 
   return (
     <div className="post">
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img src={post.profilePic} alt="" />
+            {/* For profile of the post owner */}
+            <img src={user.imageUrl} alt="" />{" "}
             <div className="details">
               <Link
                 to={`/profile/${post.userId}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <span className="name">{post.name}</span>
+                {/* For username of the post owner */}
+                <span className="name">{user.username}</span>
               </Link>
               <span className="date">1 min ago</span>
             </div>
@@ -33,8 +44,8 @@ const Post = ({ post }) => {
           <MoreHorizIcon />
         </div>
         <div className="content">
-          <p>{post.desc}</p>
-          <img src={post.img} alt="" />
+          <p>{post.value}</p>
+          <img src={post.postImageURL} alt="" />
         </div>
         <div className="info">
           <div className="item">
@@ -50,7 +61,7 @@ const Post = ({ post }) => {
             Share
           </div>
         </div>
-        {commentOpen && <Comments />}
+        {commentOpen && <Comments post={post} key={post.id} />}
       </div>
     </div>
   );

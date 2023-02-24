@@ -1,7 +1,7 @@
 import "./comments.scss";
 import * as authService from "../../services/auth";
 //ajshdjkahkjdhaskhd
-const Comments = () => {
+const Comments = ({ post }) => {
   const currentUser = authService.getCurrentUser();
   const comments = [
     {

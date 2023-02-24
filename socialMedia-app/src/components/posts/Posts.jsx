@@ -1,24 +1,18 @@
+import { useEffect, useState } from "react";
 import Post from "../post/Post";
+import * as authService from "../../services/auth";
+import * as postService from "../../services/post";
+import * as userService from "../../services/user";
 import "./posts.scss";
 
 const Posts = () => {
-  const posts = [
-    {
-      id: 1,
-      name: "LegendOfDoom",
-      userId: 1,
-      profilePic: "./pictures/legend.jpg",
-      desc: "Who wants to join? Just message me!",
-      img: "./pictures/became.jpg",
-    },
-    {
-      id: 2,
-      name: "RedDawn",
-      userId: 2,
-      profilePic: "./pictures/red.png",
-      desc: "I'm the hero of a thousand stories. I'm a superhero, an assassin a soldier. I've slain dragons and traveled through portals. I am a spartan, a commander. A king. I've saved a thousand worlds and countless more lives. What am I? I'm a gamer.",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    postService.fetchPosts().then((response) => {
+      setPosts(response.data);
+    });
+  }, []);
 
   return (
     <div className="posts">

@@ -10,14 +10,14 @@ import {
   UseGuards,
   Request,
   ForbiddenException,
-} from '@nestjs/common';
-import { PostService } from './post.service';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+} from "@nestjs/common";
+import { PostService } from "./post.service";
+import { CreatePostDto } from "./dto/create-post.dto";
+import { UpdatePostDto } from "./dto/update-post.dto";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @UseGuards(JwtAuthGuard)
-@Controller('posts')
+@Controller("posts")
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
@@ -29,36 +29,37 @@ export class PostController {
 
   @Get()
   findAll(@Request() req) {
-    this.postService.currentUserId = +req.user.userId;
+    // this.postService.currentUserId = +req.user.userId;
     return this.postService.findAll();
   }
 
-  @Get('/all')
+  // @Get("/all")
   // findAllAdmin(@Request() req) {
   //   if (!req.user.isAdmin) {
   //     throw new ForbiddenException('Forbidden');
   //   }
   //   return this.postService.findAllAdmin();
   // }
-  @Get(':id')
-  findOne(@Param('id') id: string, @Request() req) {
+
+  @Get(":id")
+  findOne(@Param("id") id: string, @Request() req) {
     this.postService.currentUserId = +req.user.userId;
     return this.postService.findOne(+id);
   }
 
-  @Put(':id')
+  @Put(":id")
   update(
-    @Param('id') id: string,
+    @Param("id") id: string,
     @Body() updatePostDto: UpdatePostDto,
-    @Request() req,
+    @Request() req
   ) {
     this.postService.currentUserId = +req.user.userId;
 
     return this.postService.update(+id, updatePostDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string, @Request() req) {
+  @Delete(":id")
+  remove(@Param("id") id: string, @Request() req) {
     this.postService.currentUserId = +req.user.userId;
     return this.postService.remove(+id);
   }

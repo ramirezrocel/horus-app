@@ -21,11 +21,11 @@ const Register = () => {
 
   /*form validation */
   const schema = Joi.object({
+    imageUrl: Joi.string().allow("").optional(),
     email: Joi.string().required(),
     name: Joi.string().required(),
     username: Joi.string().required(),
     password: Joi.string().required(),
-    imageUrl: Joi.string(),
   });
 
   const handleSubmit = async (event) => {

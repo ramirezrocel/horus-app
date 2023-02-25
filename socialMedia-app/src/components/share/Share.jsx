@@ -8,9 +8,11 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import Joi from "joi";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Share = ({ onSubmit, initialValue }) => {
   const currentUser = authService.getCurrentUser();
+  const navigate = useNavigate();
 
   /* set form content or input value */
   const [form, setForm] = useState({
@@ -29,9 +31,9 @@ const Share = ({ onSubmit, initialValue }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await postService.addPost(form.value);
+      const response = await postService.addPost(form.value, form.postImageURL);
       alert("Registration successful");
-      // navigate("/login");
+      navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 400) {
         alert(error.response.data.message);
@@ -74,7 +76,7 @@ const Share = ({ onSubmit, initialValue }) => {
       <div className="share">
         <div className="container">
           <div className="top">
-            <img src={currentUser.profilePic} alt="" />
+            <img src={currentUser.imageUrl} alt="" />
             <input
               name="value"
               error={!!errors.value}

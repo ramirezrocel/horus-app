@@ -1,5 +1,6 @@
 import Stories from "../../components/stories/Stories";
 import Posts from "../../components/posts/Posts";
+import AddPost from "../../components/share/AddPost";
 import Share from "../../components/share/Share";
 import "./home.scss";
 
@@ -8,7 +9,8 @@ const Home = () => {
     <div className="home">
       {/* this is home */}
       <Stories />
-      <Share />
+      {/* <AddPost /> */}
+      <Share></Share>
       <Posts />
     </div>
   );

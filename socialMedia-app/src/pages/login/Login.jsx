@@ -81,11 +81,11 @@ const Login = ({ onLogin }) => {
     <div className="login">
       <div className="card">
         <div className="left">
-          <h1>Hello World.</h1>
+          <h1>HORUS</h1>
+          <h2>Best Playing Game Today.</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-            alias totam numquam ipsa exercitationem dignissimos, error nam,
-            consequatur.
+            Games always believe that an epic win is possible and that it’s
+            always worth trying and trying now.
           </p>
           <span>Don't you have an account?</span>
           <Link to="/register">
@@ -94,6 +94,7 @@ const Login = ({ onLogin }) => {
         </div>
         <div className="right">
           <h1>Login</h1>
+          <h5>Keep calm and game on.</h5>
           <form onSubmit={handleSubmit}>
             <div>
               <input

@@ -30,6 +30,8 @@ export class PostController {
   @Get()
   findAll(@Request() req) {
     // this.postService.currentUserId = +req.user.userId;
+    // let user = this.postService.findAll()
+    // let comment
     return this.postService.findAll();
   }
 

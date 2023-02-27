@@ -5,19 +5,24 @@ import * as postService from "../../services/post";
 import * as userService from "../../services/user";
 import "./posts.scss";
 
-const Posts = () => {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    postService.fetchPosts().then((response) => {
-      setPosts(response.data);
+const Posts = ({ posts, users }) => {
+  // useEffect(() => {
+  const [userDetail, setUser] = useState([]);
+  const getUsername = (id) => {
+    userService.fetchUser(id).then((response) => {
+      return response.data;
+      // console.log(response.data[`username`]);
     });
-  }, []);
+  };
+  // }, ["id"]);
 
   return (
     <div className="posts">
       {posts.map((post) => (
-        <Post post={post} key={post.id} />
+        <Post
+          post={{ ...post, username: getUsername(post.userId) }}
+          key={post.id}
+        />
       ))}
     </div>
   );

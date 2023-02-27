@@ -1,3 +1,5 @@
+//fetch-user/me.posts
+
 import { Comment } from "src/comment/entities/comment.entity";
 import {
   PrimaryGeneratedColumn,
@@ -16,6 +18,9 @@ export class Post {
 
   @Column()
   userId: number;
+
+  @Column()
+  username: string;
 
   @Column()
   value: string;

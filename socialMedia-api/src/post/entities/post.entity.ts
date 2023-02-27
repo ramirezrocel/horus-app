@@ -18,6 +18,9 @@ export class Post {
   userId: number;
 
   @Column()
+  username: string;
+
+  @Column()
   value: string;
 
   @Column()

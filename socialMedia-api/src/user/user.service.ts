@@ -8,6 +8,11 @@ import { Post } from "src/post/entities/post.entity";
 
 @Injectable()
 export class UserService {
+  private _currentUserId: number = 0;
+
+  public set currentUserId(user: number) {
+    this._currentUserId = user;
+  }
   constructor(
     @Inject("USER_REPOSITORY")
     private userRepository: Repository<User>,
@@ -41,7 +46,7 @@ export class UserService {
           value: "I'm the MVP. What a wild battle!",
           postImageURL: "",
         },
-      ].map((post) => ({ ...post, userId: user.id }));
+      ].map((post) => ({ ...post, userId: user.id, username: user.username }));
       await this.postRepository.save(initialPosts);
     }
     const user_1_Exists = await this.userRepository.findOne({
@@ -67,7 +72,7 @@ export class UserService {
           value: "You can edit this at `user.services.ts` ",
           postImageURL: "",
         },
-      ].map((post) => ({ ...post, userId: user.id }));
+      ].map((post) => ({ ...post, userId: user.id, username: user.username }));
       await this.postRepository.save(initialPosts);
     }
 
@@ -94,7 +99,7 @@ export class UserService {
           value: "You can edit this at `user.services.ts` ",
           postImageURL: "",
         },
-      ].map((post) => ({ ...post, userId: user.id }));
+      ].map((post) => ({ ...post, userId: user.id, username: user.username }));
       await this.postRepository.save(initialPosts);
     }
   }
@@ -152,6 +157,11 @@ export class UserService {
 
   async findOne(username: string) {
     return this.userRepository.findOne({ where: { username } });
+  }
+
+  async findMe() {
+    // where: { userId: this._currentUserId },
+    return this.userRepository.findOne({ where: { id: this._currentUserId } });
   }
 
   async findUser(id: number) {

@@ -24,6 +24,7 @@ export class PostController {
   @Post()
   create(@Body() createPostDto: CreatePostDto, @Request() req) {
     this.postService.currentUserId = +req.user.userId;
+    this.postService.currentUsername = req.user.username;
     return this.postService.create(createPostDto);
   }
 
@@ -32,14 +33,6 @@ export class PostController {
     // this.postService.currentUserId = +req.user.userId;
     return this.postService.findAll();
   }
-
-  // @Get("/all")
-  // findAllAdmin(@Request() req) {
-  //   if (!req.user.isAdmin) {
-  //     throw new ForbiddenException('Forbidden');
-  //   }
-  //   return this.postService.findAllAdmin();
-  // }
 
   @Get(":id")
   findOne(@Param("id") id: string, @Request() req) {
@@ -60,6 +53,24 @@ export class PostController {
 
   @Delete(":id")
   remove(@Param("id") id: string, @Request() req) {
+    this.postService.currentUserId = +req.user.userId;
+    return this.postService.remove(+id);
+  }
+
+  @Get(":id/comments")
+  findComment(@Param("id") id: string, @Request() req) {
+    this.postService.currentUserId = +req.user.userId;
+    return this.postService.findOne(+id);
+  }
+
+  @Post(":id/comments")
+  create1(@Body() createPostDto: CreatePostDto, @Request() req) {
+    this.postService.currentUserId = +req.user.userId;
+    return this.postService.create(createPostDto);
+  }
+
+  @Delete(":id/comments/:commentId")
+  remove1(@Param("id") id: string, @Request() req) {
     this.postService.currentUserId = +req.user.userId;
     return this.postService.remove(+id);
   }

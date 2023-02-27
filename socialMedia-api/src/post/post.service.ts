@@ -7,9 +7,14 @@ import { Post } from "./entities/post.entity";
 @Injectable()
 export class PostService {
   private _currentUserId: number = 0;
+  private _currentUsername: string = "";
 
   public set currentUserId(user: number) {
     this._currentUserId = user;
+  }
+
+  public set currentUsername(user: string) {
+    this._currentUsername = user;
   }
 
   constructor(
@@ -22,6 +27,7 @@ export class PostService {
     post.value = createPostDto.value;
     post.postImageURL = createPostDto.postImageURL;
     post.userId = this._currentUserId;
+    post.username = this._currentUsername;
 
     return this.postRepository.save(post);
   }
@@ -45,6 +51,15 @@ export class PostService {
 
   async findOne(id: number) {
     return this.postRepository.findOne({ id, userId: this._currentUserId });
+  }
+
+  async findUserPost(username: string) {
+    return this.postRepository.find({
+      where: { username },
+      order: {
+        id: "DESC",
+      },
+    });
   }
 
   async update(id: number, updatePostDto: UpdatePostDto) {

@@ -12,6 +12,10 @@ export function fetchPostById(id) {
   return http.get(`/posts/${id}`);
 }
 
+export function fetchUserPost(userId) {
+  return http.get(`/posts/${userId}`);
+}
+
 // export function addPost(post) {
 //   const postClone = { ...post };
 //   Object.keys(postClone).forEach((key) => {

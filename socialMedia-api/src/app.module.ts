@@ -6,9 +6,10 @@ import { UserModule } from "./user/user.module";
 import { PostModule } from "./post/post.module";
 
 import { CommentModule } from "./comment/comment.module";
+import { ProfilesModule } from './profiles/profiles.module';
 
 @Module({
-  imports: [AuthModule, UserModule, PostModule, UserModule, CommentModule],
+  imports: [AuthModule, UserModule, PostModule, UserModule, CommentModule, ProfilesModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -81,11 +81,11 @@ const Register = () => {
     <div className="register">
       <div className="card">
         <div className="left">
-          <h1>Lama Social.</h1>
+          <h1>HORUS</h1>
+          <h2>Best Playing Game Today.</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-            alias totam numquam ipsa exercitationem dignissimos, error nam,
-            consequatur.
+            Games always believe that an epic win is possible and that it’s
+            always worth trying and trying now.
           </p>
           <span>Do you have an account?</span>
           <Link to="/login">

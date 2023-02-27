@@ -19,6 +19,6 @@ export class Comment {
   // @OneToMany(() => Post, (post) => post.comment)
   // post: Post[];
 
-  @OneToMany(() => User, (user) => user.comments)
-  user: User[];
+  // @OneToMany(() => User, (user) => user.comments)
+  // user: User[];
 }

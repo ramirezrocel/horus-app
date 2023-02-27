@@ -23,13 +23,13 @@ export class Post {
   @Column()
   postImageURL: string;
 
-  @OneToOne(() => User)
-  @JoinColumn({ name: "userId" })
-  user: User;
-
-  // @ManyToOne(() => User, (user) => user.posts)
+  // @OneToOne(() => User)
+  // @JoinColumn({ name: "userId" })
   // user: User;
 
-  @ManyToOne(() => Comment, (comment) => comment.post)
-  comment: Comment[];
+  @ManyToOne(() => User, (user) => user.posts)
+  user: User;
+
+  // @ManyToOne(() => Comment, (comment) => comment.post)
+  // comment: Comment[];
 }

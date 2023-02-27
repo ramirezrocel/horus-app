@@ -67,8 +67,8 @@ export class CommentService {
     return "This action adds a new comment";
   }
 
-  async findAll(): Promise<Comment[]> {
-    return this.commentRepository.find();
+  async findAll(id: number): Promise<Comment[]> {
+    return this.commentRepository.find({ postId: id });
   }
 
   findOne(id: number) {

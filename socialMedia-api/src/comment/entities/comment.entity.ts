@@ -16,8 +16,8 @@ export class Comment {
   @Column()
   value: string;
 
-  @OneToMany(() => Post, (post) => post.comment)
-  post: Post[];
+  // @OneToMany(() => Post, (post) => post.comment)
+  // post: Post[];
 
   @OneToMany(() => User, (user) => user.comments)
   user: User[];

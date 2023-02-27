@@ -11,31 +11,16 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
 
-  // useEffect(() => {
-  //   postService.fetchPosts().then((response) => {
-  //     setPosts(response.data);
-  //   });
-  // }, []);
   useEffect(() => {
-    async () => {
-      userService.fetchUsers().then((response) => {
-        setUsers(response.data);
-      });
-      try {
-        const response = await posts.map((post) => {
-          users.map((user) => {
-            if (post.userId === user.id) {
-              setPosts({ ...post, username: user.username });
-            }
-          });
-        });
-      } catch {
-        response;
-      }
-    };
+    postService.fetchPosts().then((response) => {
+      setPosts(response.data);
+    });
+
+    userService.fetchUsers().then((response) => {
+      setUsers(response.data);
+    });
   }, []);
 
-  console.log(posts);
   return (
     <div className="home">
       {/* this is home */}

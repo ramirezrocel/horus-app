@@ -10,6 +10,7 @@ import Tournaments from "../../assets/tournament.png";
 import { AuthContext } from "../../context/authContext";
 import { useContext } from "react";
 import * as authService from "../../services/auth";
+import { Link } from "react-router-dom";
 
 const LeftBar = () => {
   // const { currentUser } = useContext(AuthContext);
@@ -21,7 +22,9 @@ const LeftBar = () => {
         <div className="menu">
           <div className="user">
             <img src={currentUser.imageUrl} alt="" />
-            <span>{currentUser.name}</span>
+            <Link to={`users/me`}>
+              <span>{currentUser.name}</span>
+            </Link>
           </div>
 
           <div className="item">

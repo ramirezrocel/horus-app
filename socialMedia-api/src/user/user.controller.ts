@@ -1,3 +1,5 @@
+//fetch-user/me.posts
+
 import {
   Controller,
   Post,
@@ -15,9 +17,17 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  //OK -ROUTES
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
+  }
+
+  //OK -ROUTES
+  @Get("/me")
+  findMe(@Request() req) {
+    this.userService.currentUserId = +req.user.userId;
+    return this.userService.findMe();
   }
 
   @Get()

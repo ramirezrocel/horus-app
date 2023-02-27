@@ -1,5 +1,3 @@
-//fetch-user/me.posts
-
 import "./profile.scss";
 import "../../components/posts/posts.scss";
 import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";

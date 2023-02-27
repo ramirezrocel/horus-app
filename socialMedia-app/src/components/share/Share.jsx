@@ -1,5 +1,3 @@
-//fetch-user/me.posts
-
 import "./share.scss";
 import Image from "../../assets/add-image.png";
 import Map from "../../assets/add-location.png";

@@ -1,4 +1,3 @@
-//fetch-user/me.posts
 import "./leftBar.scss";
 import Friends from "../../assets/invite.png";
 import Groups from "../../assets/customers.png";

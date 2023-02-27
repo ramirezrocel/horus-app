@@ -16,30 +16,16 @@ export function fetchUserPost(userId) {
   return http.get(`/posts/${userId}`);
 }
 
-// export function addPost(post) {
-//   const postClone = { ...post };
-//   Object.keys(postClone).forEach((key) => {
-//     if (
-//       postClone[key] === "" ||
-//       postClone[key] === null ||
-//       postClone[key] === undefined
-//     ) {
-//       delete postClone[key];
-//     }
-//   });
-
-//   return http.post("/posts", postClone);
-// }
-
-export function addPost(value, postImageURL) {
-  return http.post("/posts", { value, postImageURL });
+export function addPost(post) {
+  const postClone = { ...post };
+  return http.post("/posts", postClone);
 }
 
 export function updatePost(id, post) {
   const postClone = { ...post };
   Object.keys(postClone).forEach((key) => {
     if (
-      postClone[key] === "" ||
+      // postClone[key] === "" ||
       postClone[key] === null ||
       postClone[key] === undefined
     ) {

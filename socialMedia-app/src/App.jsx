@@ -15,10 +15,11 @@ import RightBar from "./components/rightBar/RightBar";
 import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
 import "./style.scss";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import * as authService from "../src/services/auth";
 import NotFound from "./pages/notFound/NotFound";
+import * as postService from "../src/services/post";
 
 function App() {
   const navigate = useNavigate();
@@ -27,13 +28,20 @@ function App() {
 
   /* get logged user data from local storage */
   const [accessToken, setAccessToken] = useState(authService.getAccessToken());
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    postService.fetchPosts().then((response) => {
+      setPosts(response.data);
+    });
+  }, []);
 
   const handleLogin = async (username, password) => {
     try {
       const response = await authService.login(username, password);
       localStorage.setItem("accessToken", response.data.accessToken);
       setAccessToken(response.data.accessToken);
-      alert("login successfully");
+      alert("Login successfully");
       navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 400) {
@@ -42,11 +50,26 @@ function App() {
     }
   };
 
-  // console.log(authService.getCurrentUser());
   const handleLogout = () => {
     authService.logout();
     setAccessToken(null);
     navigate("/login");
+  };
+
+  const handleSubmit = (post) => {
+    try {
+      postService.addPost(post).then((response) => {
+        // console.log(response);
+        // alert("Post shared!");
+      });
+      postService.fetchPosts().then((response) => {
+        setPosts(response.data);
+      });
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        alert(error.response.data.message);
+      }
+    }
   };
 
   const Layout = () => {
@@ -70,9 +93,15 @@ function App() {
           element={accessToken ? <Layout /> : <Navigate to="/login" />}
         >
           <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Home />} />
+          <Route
+            path="/home"
+            element={<Home onSubmit={handleSubmit} posts={posts} />}
+          />
           <Route path="/profile/:id" element={<Profile />} />
-          <Route path="users/me" element={<Profile />} />
+          <Route
+            path="users/me"
+            element={<Profile onSubmit={handleSubmit} />}
+          />
         </Route>
 
         <Route path="/login" element={<Login onLogin={handleLogin} />} />

@@ -3,14 +3,11 @@ import Image from "../../assets/add-image.png";
 import Map from "../../assets/add-location.png";
 import Friend from "../../assets/add-friend.png";
 import * as authService from "../../services/auth";
-import * as postService from "../../services/post";
-import { useContext } from "react";
-import { AuthContext } from "../../context/authContext";
 import Joi from "joi";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Share = ({ onSubmit, initialValue }) => {
+const Share = ({ onSubmit }) => {
   const currentUser = authService.getCurrentUser();
   const navigate = useNavigate();
 
@@ -28,17 +25,9 @@ const Share = ({ onSubmit, initialValue }) => {
     postImageURL: Joi.string().allow("").optional(),
   });
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    try {
-      const response = await postService.addPost(form.value, form.postImageURL);
-      alert("Post shared!");
-      navigate("/");
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        alert(error.response.data.message);
-      }
-    }
+    onSubmit(form);
   };
 
   /**
@@ -63,12 +52,6 @@ const Share = ({ onSubmit, initialValue }) => {
       delete errors[input.name];
       setErrors(errors);
     }
-  };
-
-  /* button disabled = true or false */
-  const isFormInvalid = () => {
-    const result = schema.validate(form);
-    return !!result.error;
   };
 
   return (

@@ -7,15 +7,10 @@ import * as userService from "../../services/user";
 import "./home.scss";
 import { useEffect, useState } from "react";
 
-const Home = () => {
-  const [posts, setPosts] = useState([]);
+const Home = ({ onSubmit, posts }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    postService.fetchPosts().then((response) => {
-      setPosts(response.data);
-    });
-
     userService.fetchUsers().then((response) => {
       setUsers(response.data);
     });
@@ -26,7 +21,7 @@ const Home = () => {
       {/* this is home */}
       <Stories />
       {/* <AddPost /> */}
-      <Share></Share>
+      <Share onSubmit={onSubmit}></Share>
       <Posts posts={posts} users={users} />
     </div>
   );

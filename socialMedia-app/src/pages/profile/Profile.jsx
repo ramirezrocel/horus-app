@@ -2,7 +2,6 @@ import "./profile.scss";
 import "../../components/posts/posts.scss";
 import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
 import { useParams } from "react-router-dom";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -19,9 +18,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Share from "../../components/share/Share";
 
-const Profile = () => {
+const Profile = ({ onSubmit }) => {
   const [posts, setPosts] = useState([]);
-  const params = useParams();
   const currentUser = authService.getCurrentUser();
 
   useEffect(() => {
@@ -30,9 +28,7 @@ const Profile = () => {
       // console.log(response.data);
     });
   }, []);
-  // console.log(posts);
-  // const filteredPosts = posts.filter((posts) => posts.userId === params.id);
-  // console.log(filteredPosts);
+
   return (
     <div className="profile">
       <div className="images">
@@ -79,7 +75,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <Share></Share>
+        <Share onSubmit={onSubmit}></Share>
         <div className="posts">
           {posts.map((post) => (
             <Post post={post} key={post.id} />

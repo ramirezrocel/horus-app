@@ -40,7 +40,6 @@ let PostService = class PostService {
     }
     async findAll() {
         return this.postRepository.find({
-            where: { userId: this._currentUserId },
             order: {
                 id: "DESC",
             },
@@ -48,6 +47,9 @@ let PostService = class PostService {
     }
     async findOne(id) {
         return this.postRepository.findOne({ id, userId: this._currentUserId });
+    }
+    async findUserPost(userId) {
+        return this.postRepository.findOne({ userId: this._currentUserId });
     }
     async update(id, updatePostDto) {
         var _a;

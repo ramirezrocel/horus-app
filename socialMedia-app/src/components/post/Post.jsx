@@ -8,8 +8,10 @@ import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
 import { useEffect, useState } from "react";
 import * as userService from "../../services/user";
+import * as commentService from "../../services/comment";
 
-const Post = ({ post }) => {
+const Post = ({ post, users }) => {
+  const [comments, setComments] = useState([]);
   const [commentOpen, setCommentOpen] = useState(false);
   const [user, setUser] = useState({});
   //TEMPORARY
@@ -19,9 +21,13 @@ const Post = ({ post }) => {
     userService.fetchUser(post.userId).then((response) => {
       setUser(response.data);
     });
+
+    commentService.fetchComments().then((response) => {
+      setComments(response.data);
+    });
   }, []);
 
-  // console.log(username);
+  // console.log(users);
 
   return (
     <div className="post">
@@ -61,7 +67,9 @@ const Post = ({ post }) => {
             Share
           </div>
         </div>
-        {commentOpen && <Comments post={post} key={post.id} />}
+        {commentOpen && (
+          <Comments post={post} key={post.id} comments={comments} />
+        )}
       </div>
     </div>
   );

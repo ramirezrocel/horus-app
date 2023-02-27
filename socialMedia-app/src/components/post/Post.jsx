@@ -1,3 +1,4 @@
+//fetch-user/me.posts
 import "./post.scss";
 import "../comments/comments.scss";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";

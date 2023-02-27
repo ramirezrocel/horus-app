@@ -32,7 +32,7 @@ const Share = ({ onSubmit, initialValue }) => {
     event.preventDefault();
     try {
       const response = await postService.addPost(form.value, form.postImageURL);
-      alert("Registration successful");
+      alert("Post shared!");
       navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 400) {
@@ -79,8 +79,6 @@ const Share = ({ onSubmit, initialValue }) => {
             <img src={currentUser.imageUrl} alt="" />
             <input
               name="value"
-              error={!!errors.value}
-              helperText={errors.value}
               onChange={handleChange}
               value={form.value}
               type="text"
@@ -93,8 +91,6 @@ const Share = ({ onSubmit, initialValue }) => {
             <div className="left">
               <input
                 name="postImageURL"
-                error={!!errors.postImageURL}
-                helperText={errors.postImageURL}
                 onChange={handleChange}
                 value={form.postImageURL}
                 label="Post"

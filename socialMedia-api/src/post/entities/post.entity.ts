@@ -1,3 +1,5 @@
+//fetch-user/me.posts
+
 import { Comment } from "src/comment/entities/comment.entity";
 import {
   PrimaryGeneratedColumn,

@@ -1,3 +1,5 @@
+//fetch-user/me.posts
+
 import http from "./http";
 
 export function fetchPosts() {

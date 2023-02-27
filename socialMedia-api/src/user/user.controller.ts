@@ -1,3 +1,5 @@
+//fetch-user/me.posts
+
 import {
   Controller,
   Post,

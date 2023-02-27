@@ -6,6 +6,7 @@ import { User } from "./entities/user.entity";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { Post } from "src/post/entities/post.entity";
 
+//fetch-user/me.posts
 @Injectable()
 export class UserService {
   private _currentUserId: number = 0;

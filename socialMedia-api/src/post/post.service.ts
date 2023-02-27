@@ -1,3 +1,5 @@
+//fetch-user/me.posts
+
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { CreatePostDto } from "./dto/create-post.dto";

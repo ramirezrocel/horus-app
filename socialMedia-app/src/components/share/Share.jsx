@@ -98,7 +98,7 @@ const Share = ({ onSubmit, initialValue }) => {
                 onChange={handleChange}
                 value={form.postImageURL}
                 label="Post"
-                placeholder={`What's on your mind ${currentUser.name}?`}
+                placeholder={`Insert ImageUrl ${currentUser.name}?`}
               />
               {/* <input type="file" id="file" style={{ display: "none" }} /> */}
               {/* <label htmlFor="file"> */}

@@ -50,8 +50,8 @@ const LeftBar = () => {
         <div className="menu">
           <span>MY GAMES</span>
 
-          <img className="games" src="./pictures/left.jpg"></img>
-          <img className="games" src="./pictures/counter.png"></img>
+          <img className="games" src="../pictures/left.jpg"></img>
+          <img className="games" src="../pictures/counter.png"></img>
 
           {/* <div className="item">
             <img src={Gaming} alt="" />

@@ -22,8 +22,8 @@ const Navbar = ({ onLogout }) => {
     <div className="navbar">
       <div className="left">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <img className="horuslogo" src="./pictures/horuslogo.png"></img>
-          <img className="namelogo" src="./pictures/namelogo.png"></img>
+          <img className="horuslogo" src="../pictures/horuslogo.png"></img>
+          <img className="namelogo" src="../pictures/namelogo.png"></img>
           {/* <span>HORUS</span> */}
         </Link>
 
@@ -38,10 +38,15 @@ const Navbar = ({ onLogout }) => {
         ) : (
           <DarkModeOutlinedIcon onClick={toggle} />
         )}
-        <HomeOutlinedIcon />
+        <Link to="/home" style={{ textDecoration: "none", color: "inherit" }}>
+          <HomeOutlinedIcon />
+        </Link>
 
-        <EmailOutlinedIcon />
-        <Button href="/login" onClick={onLogout}>
+        <Button
+          href="/login"
+          onClick={onLogout}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           Logout
         </Button>
         <div className="user">

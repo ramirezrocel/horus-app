@@ -8,62 +8,58 @@ import PlaceIcon from "@mui/icons-material/Place";
 import LanguageIcon from "@mui/icons-material/Language";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Posts from "../../components/posts/Posts"
+import Posts from "../../components/posts/Posts";
+import * as authService from "../../services/auth";
 
 const Profile = () => {
+  const currentUser = authService.getCurrentUser();
   return (
     <div className="profile">
       <div className="images">
         <img
-          src="https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          src="https://s3.amazonaws.com/prod-media.gameinformer.com/styles/full/s3/2019/09/04/3e7722f3/grbhero.jpg"
           alt=""
           className="cover"
         />
-        <img
-          src="https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-          alt=""
-          className="profilePic"
-        />
+        <img src={currentUser.imageUrl} alt="" className="profilePic" />
       </div>
       <div className="profileContainer">
         <div className="uInfo">
-          <div className="left">
+          {/* <div className="left">
             <a href="http://facebook.com">
               <FacebookTwoToneIcon fontSize="large" />
             </a>
-            <a href="http://facebook.com">
+            <a href="http://instagram.com">
               <InstagramIcon fontSize="large" />
             </a>
-            <a href="http://facebook.com">
+            <a href="http://twitter.com">
               <TwitterIcon fontSize="large" />
             </a>
-            <a href="http://facebook.com">
-              <LinkedInIcon fontSize="large" />
-            </a>
-            <a href="http://facebook.com">
-              <PinterestIcon fontSize="large" />
-            </a>
-          </div>
+          </div> */}
           <div className="center">
-            <span>Jane Doe</span>
+            <span>{currentUser.name}</span>
+
+            <br />
+            <a href="http://facebook.com">
+              <FacebookTwoToneIcon fontSize="large" />
+            </a>
+            <br />
+            <a href="http://instagram.com">
+              <InstagramIcon fontSize="large" />
+            </a>
+            <br />
+            <a href="http://twitter.com">
+              <TwitterIcon fontSize="large" />
+            </a>
             <div className="info">
               <div className="item">
                 <PlaceIcon />
-                <span>USA</span>
-              </div>
-              <div className="item">
-                <LanguageIcon />
-                <span>lama.dev</span>
+                <span>Philippines</span>
               </div>
             </div>
-            <button>follow</button>
-          </div>
-          <div className="right">
-            <EmailOutlinedIcon />
-            <MoreVertIcon />
           </div>
         </div>
-      <Posts/>
+        <Posts />
       </div>
     </div>
   );

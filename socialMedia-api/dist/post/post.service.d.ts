@@ -11,6 +11,7 @@ export declare class PostService {
     findAllAdmin(): Promise<Post[]>;
     findAll(): Promise<Post[]>;
     findOne(id: number): Promise<Post>;
+    findUserPost(userId: number): Promise<Post>;
     update(id: number, updatePostDto: UpdatePostDto): Promise<Post>;
     remove(id: number): Promise<{
         id: number;

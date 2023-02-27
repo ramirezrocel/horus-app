@@ -41,10 +41,15 @@ export class PostController {
   //   return this.postService.findAllAdmin();
   // }
 
-  @Get(":id")
-  findOne(@Param("id") id: string, @Request() req) {
+  // @Get(":id")
+  // findOne(@Param("id") id: string, @Request() req) {
+  //   this.postService.currentUserId = +req.user.userId;
+  //   return this.postService.findOne(+id);
+  // }
+  @Get(":userId")
+  findUserPost(@Param("userId") userId: string, @Request() req) {
     this.postService.currentUserId = +req.user.userId;
-    return this.postService.findOne(+id);
+    return this.postService.findUserPost(+userId);
   }
 
   @Put(":id")

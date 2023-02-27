@@ -46,6 +46,9 @@ export class PostService {
   async findOne(id: number) {
     return this.postRepository.findOne({ id, userId: this._currentUserId });
   }
+  async findUserPost(userId: number) {
+    return this.postRepository.findOne({ userId: this._currentUserId });
+  }
 
   async update(id: number, updatePostDto: UpdatePostDto) {
     let post = await this.postRepository.findOne({

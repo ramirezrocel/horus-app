@@ -1,24 +1,23 @@
-
 .register {
   height: 100vh;
-  background-color: rgb(193, 190, 255);
+  background-color: #292b3060;
   display: flex;
   align-items: center;
   justify-content: center;
 
   .card {
-    width: 50%;
+    width: 80%;
     display: flex;
     flex-direction: row-reverse;
-    background-color: white;
+    background-color: rgb(54, 54, 57);
     border-radius: 10px;
-    min-height: 600px;
+    min-height: 300px;
     overflow: hidden;
 
     .left {
       flex: 1;
-      background: linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
-        url("https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600")
+      background: linear-gradient(rgba(52, 50, 56, 0.5), rgba(72, 71, 76, 0.5)),
+        url("https://bbts1.azureedge.net/images/p/full/2022/11/a3d15c33-6cb1-4a3a-bd31-109cef015460.jpg")
           center;
       background-size: cover;
       padding: 50px;
@@ -26,10 +25,12 @@
       flex-direction: column;
       gap: 30px;
       color: white;
-
       h1 {
-        font-size: 100px;
-        line-height: 100px;
+        font-size: 40px;
+      }
+      h2 {
+        font-size: 35px;
+        line-height: 50px;
       }
 
       p {
@@ -40,13 +41,18 @@
       }
 
       button {
-        width: 50%;
+        width: 30%;
         padding: 10px;
         border: none;
         background-color: white;
-        color: rebeccapurple;
+        color: #31302e;
         font-weight: bold;
         cursor: pointer;
+        border-radius: 10px;
+        &:hover {
+          background-color: #cfcf36;
+          color: white;
+        }
       }
     }
 
@@ -59,7 +65,10 @@
       justify-content: center;
 
       h1 {
-        color: #555;
+        color: white;
+        // margin-top: 5px;
+        margin-left: 10px;
+        margin-bottom: 1px;
       }
 
       .register-header {
@@ -70,24 +79,30 @@
       form {
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 12px;
 
         input {
           border: none;
           border-bottom: 1px solid lightgray;
-          padding: 20px 10px;
+          padding: 15px 0px;
           margin-bottom: 0px;
+          border-radius: 10px;
           width: 100%;
         }
 
         button {
-          width: 100%;
+          width: 30%;
           padding: 10px;
           border: none;
-          background-color: #938eef;
-          color: white;
+          background-color: white;
+          color: #31302e;
           font-weight: bold;
           cursor: pointer;
+          border-radius: 10px;
+          &:hover {
+            background-color: #cfcf36;
+            color: white;
+          }
         }
 
         .text-error {

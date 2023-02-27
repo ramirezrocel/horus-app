@@ -36,10 +36,21 @@ const Post = ({ post }) => {
     });
   }, []);
 
+  const getNumberOfComments = () => {
+    if (comments.length > 1) {
+      return `${comments.length} Comments`;
+    } else if (comments.length == 1) {
+      return `${comments.length} Comment`;
+    } else {
+      return "Comment";
+    }
+  };
+
   const getImage = (id) => {
     const data = users.find((user) => user.id === id);
     return data["imageUrl"];
   };
+
   const getUsername = (id) => {
     const data = users.find((user) => user.id === id);
     return data["username"];
@@ -76,7 +87,7 @@ const Post = ({ post }) => {
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
-            12 Comments
+            {getNumberOfComments()}
           </div>
           <div className="item">
             <ShareOutlinedIcon />
@@ -107,7 +118,6 @@ const Post = ({ post }) => {
             </div>
           </>
         )}
-
         {/* COmment End */}
       </div>
     </div>

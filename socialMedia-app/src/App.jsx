@@ -72,6 +72,7 @@ function App() {
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="users/me" element={<Profile />} />
         </Route>
 
         <Route path="/login" element={<Login onLogin={handleLogin} />} />

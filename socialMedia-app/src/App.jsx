@@ -20,6 +20,8 @@ import { DarkModeContext } from "./context/darkModeContext";
 import * as authService from "../src/services/auth";
 import NotFound from "./pages/notFound/NotFound";
 import * as postService from "../src/services/post";
+import PostDetailsPage from "./pages/postDetails/PostDetailsPage";
+import PostForm from "./pages/postDetails/PostForm";
 
 function App() {
   const navigate = useNavigate();
@@ -109,6 +111,8 @@ function App() {
             path="users/me"
             element={<Profile onSubmit={handleSubmit} />}
           />
+           <Route path="/postDetails/:id" element={<PostDetailsPage />} />
+          <Route path="/editPost/:id" element={<PostForm />} />
         </Route>
 
         <Route path="/login" element={<Login onLogin={handleLogin} />} />

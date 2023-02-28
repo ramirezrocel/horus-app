@@ -8,6 +8,11 @@ import { Comment } from "./entities/comment.entity";
 
 @Injectable()
 export class CommentService {
+  private _currentUserId: number = 0;
+
+  public set currentUserId(user: number) {
+    this._currentUserId = user;
+  }
   constructor(
     @Inject("COMMENT_REPOSITORY")
     private commentRepository: Repository<Comment>,
@@ -63,8 +68,14 @@ export class CommentService {
     }
   }
 
-  create(createCommentDto: CreateCommentDto) {
-    return "This action adds a new comment";
+  async create(createCommentDto: CreateCommentDto) {
+    const comment = new Comment();
+    comment.value = createCommentDto.value;
+    comment.postId = createCommentDto.postId;
+    comment.userId = this._currentUserId;
+
+    return this.commentRepository.save(comment);
+    // return "This action adds a new comment";
   }
 
   async findAll(id: number): Promise<Comment[]> {

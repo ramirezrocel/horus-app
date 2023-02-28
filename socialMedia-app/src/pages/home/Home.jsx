@@ -9,12 +9,19 @@ import { useEffect, useState } from "react";
 
 const Home = ({ onSubmit, posts }) => {
   const [users, setUsers] = useState([]);
+  // const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     userService.fetchUsers().then((response) => {
       setUsers(response.data);
     });
   }, []);
+
+  // useEffect(() => {
+  //   postService.fetchPosts().then((response) => {
+  //     setPosts(response.data);
+  //   });
+  // }, []);
 
   return (
     <div className="home">

@@ -87,7 +87,7 @@ export class PostService {
 //       );
 //     }
 
-    post.value = updatePostDto.title ?? post.value;
+    post.value = updatePostDto.value ?? post.value;
     post.postImageURL = updatePostDto.postImageURL ?? post.postImageURL;
 
     await this.postRepository.save(post);

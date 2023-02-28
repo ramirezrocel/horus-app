@@ -43,10 +43,11 @@ export class PostController {
 
   @Get(":id")
   findOne(@Param("id") id: string, @Request() req) {
-    this.postService.currentUserId = +req.user.userId;
+    //this.postService.currentUserId = +req.user.userId;
     return this.postService.findOne(+id);
   }
 
+   //for update post
   @Put(":id")
   update(
     @Param("id") id: string,
@@ -54,13 +55,12 @@ export class PostController {
     @Request() req
   ) {
     this.postService.currentUserId = +req.user.userId;
-
     return this.postService.update(+id, updatePostDto);
   }
 
   @Delete(":id")
   remove(@Param("id") id: string, @Request() req) {
-    this.postService.currentUserId = +req.user.userId;
+    //this.postService.currentUserId = +req.user.userId;
     return this.postService.remove(+id);
   }
 

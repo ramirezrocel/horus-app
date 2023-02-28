@@ -21,20 +21,9 @@ export function addPost(post) {
   return http.post("/posts", postClone);
 }
 
-export function updatePost(id, post) {
-  const postClone = { ...post };
-  Object.keys(postClone).forEach((key) => {
-    if (
-      // postClone[key] === "" ||
-      postClone[key] === null ||
-      postClone[key] === undefined
-    ) {
-      delete postClone[key];
-    }
-  });
-  return http.put(`/posts/${id}`, postClone);
+export function updatePost(value, postImageURL, id) {
+  return http.put(`/posts/${id}`, { value, postImageURL, id });
 }
-
 export function deletePost(id) {
   return http.delete(`/posts/${id}`);
 }

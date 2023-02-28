@@ -6,15 +6,16 @@ import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as userService from "../../services/user";
 import * as commentService from "../../services/comment";
 import * as authService from "../../services/auth";
+import Joi from "joi";
 
 const Post = ({ post }) => {
   const currentUser = authService.getCurrentUser();
-
+  const navigate = useNavigate();
   const [comments, setComments] = useState([]);
   const [commentOpen, setCommentOpen] = useState(false);
   const [users, setUsers] = useState([]);
@@ -54,6 +55,68 @@ const Post = ({ post }) => {
   const getUsername = (id) => {
     const data = users.find((user) => user.id === id);
     return data["username"];
+  };
+
+  const [form, setForm] = useState({
+    value: "",
+    postId: post.id,
+  });
+
+  const [errors, setErrors] = useState({});
+
+  /*form validation */
+  const schema = Joi.object({
+    value: Joi.string().required(),
+    postId: Joi.string().required(),
+  });
+
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await commentService.addComment(form.postId, form.value);
+      // alert("Comment successful");
+      commentService.fetchCommentsByPost(post.id).then((response) => {
+        setComments(response.data);
+      });
+      setForm({
+        ...form,
+        value: "",
+      });
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        alert(error.response.data.message);
+      }
+    }
+  };
+
+  /**
+   * handle every event
+   * set form input values
+   * set errors to form
+   */
+  const handleChange = ({ currentTarget: input }) => {
+    setForm({
+      ...form,
+      [input.name]: input.value,
+    });
+
+    const { error } = schema
+      .extract(input.name)
+      .label(input.name)
+      .validate(input.value);
+
+    if (error) {
+      setErrors({ ...errors, [input.name]: error.details[0].message });
+    } else {
+      delete errors[input.name];
+      setErrors(errors);
+    }
+  };
+
+  /* button disabled = true or false */
+  const isFormInvalid = () => {
+    const result = schema.validate(form);
+    return !!result.error;
   };
 
   return (
@@ -99,11 +162,26 @@ const Post = ({ post }) => {
         {commentOpen && (
           <>
             <div className="comments">
-              <div className="write">
+              <form onSubmit={handleCommentSubmit} className="write">
+                {/* <form> */}
                 <img src={currentUser.imageUrl} alt="" />
-                <input type="text" placeholder="write a comment" />
-                <button>Send</button>
-              </div>
+                <input
+                  name="postId"
+                  onChange={handleChange}
+                  value={form.postId}
+                  type="hidden"
+                />
+                <input
+                  name="value"
+                  onChange={handleChange}
+                  value={form.value}
+                  type="text"
+                  placeholder="write a comment"
+                  required
+                />
+                <button type="submit">Send</button>
+                {/* </form> */}
+              </form>
               {comments.map((comment) => (
                 <div className="comment">
                   <img src={getImage(comment.userId)} alt="" />

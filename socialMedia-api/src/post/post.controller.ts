@@ -17,11 +17,16 @@ import { PostService } from "./post.service";
 import { CreatePostDto } from "./dto/create-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { CommentService } from "../comment/comment.service";
+import { CreateCommentDto } from "../comment/dto/create-comment.dto";
 
 @UseGuards(JwtAuthGuard)
 @Controller("posts")
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+    private readonly commentService: CommentService
+  ) {}
 
   @Post()
   create(@Body() createPostDto: CreatePostDto, @Request() req) {
@@ -65,10 +70,11 @@ export class PostController {
     return this.postService.findOne(+id);
   }
 
+  //for adding comment to a post
   @Post(":id/comments")
-  create1(@Body() createPostDto: CreatePostDto, @Request() req) {
-    this.postService.currentUserId = +req.user.userId;
-    return this.postService.create(createPostDto);
+  addComment(@Body() createCommentDto: CreateCommentDto, @Request() req) {
+    this.commentService.currentUserId = +req.user.userId;
+    return this.commentService.create(createCommentDto);
   }
 
   @Delete(":id/comments/:commentId")

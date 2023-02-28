@@ -31,9 +31,11 @@ function App() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    postService.fetchPosts().then((response) => {
-      setPosts(response.data);
-    });
+    if (accessToken) {
+      postService.fetchPosts().then((response) => {
+        setPosts(response.data);
+      });
+    }
   }, []);
 
   const handleLogin = async (username, password) => {
@@ -42,6 +44,11 @@ function App() {
       localStorage.setItem("accessToken", response.data.accessToken);
       setAccessToken(response.data.accessToken);
       alert("Login successfully");
+
+      postService.fetchPosts().then((response) => {
+        setPosts(response.data);
+      });
+
       navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 400) {
@@ -95,7 +102,7 @@ function App() {
           <Route path="/" element={<Navigate to="/home" />} />
           <Route
             path="/home"
-            element={<Home onSubmit={handleSubmit} posts={posts} />}
+            element={<Home posts={posts} onSubmit={handleSubmit} />}
           />
           <Route path="/profile/:id" element={<Profile />} />
           <Route

@@ -1,6 +1,7 @@
 //fetch-user/me.posts
 
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
+import { User } from "src/user/entities/user.entity";
 import { Repository } from "typeorm";
 import { CreatePostDto } from "./dto/create-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
@@ -20,6 +21,12 @@ export class PostService {
   }
 
   constructor(
+    @Inject("COMMENT_REPOSITORY")
+    private commentRepository: Repository<Comment>,
+
+    @Inject("USER_REPOSITORY")
+    private userRepository: Repository<User>,
+
     @Inject("POST_REPOSITORY")
     private postRepository: Repository<Post>
   ) {}

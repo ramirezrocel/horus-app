@@ -7,11 +7,18 @@ import { PostService } from "../post/post.service";
 import { PostController } from "../post/post.controller";
 import { DatabaseModule } from "src/database/database.module";
 import { postProviders } from "../post/providers/post.providers";
+import { commentProviders } from "../comment/providers/comment.providers";
+import { userProviders } from "../user/providers/user.providers";
 
 @Module({
   imports: [DatabaseModule],
   controllers: [ProfilesController],
-  providers: [...postProviders, PostService],
+  providers: [
+    ...postProviders,
+    ...commentProviders,
+    ...userProviders,
+    PostService,
+  ],
   exports: [ProfilesModule],
 })
 export class ProfilesModule {}

@@ -22,22 +22,27 @@ const Profile = ({ onSubmit }) => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState([]);
   const currentUser = authService.getCurrentUser();
-  const params = useParams();
+  const { id } = useParams();
+
+  const paramUsername = () => {
+    if (id) {
+      return id;
+    } else {
+      return currentUser.username;
+    }
+  };
 
   useEffect(() => {
-    profileService.fetchUserPost(params.id).then((response) => {
+    profileService.fetchUserPost(paramUsername()).then((response) => {
       setPosts(response.data);
-      // console.log(response.data);
     });
-    profileService.fetchUserByUsername(params.id).then((response) => {
+    profileService.fetchUserByUsername(paramUsername()).then((response) => {
       setUser(response.data);
-      console.log(response.data);
     });
   }, []);
-  console.log(params.id);
 
   const isMe = () => {
-    if (params.id === currentUser.username) {
+    if (paramUsername() === currentUser.username) {
       return <Share onSubmit={onSubmit}></Share>;
     }
   };

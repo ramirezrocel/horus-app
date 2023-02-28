@@ -104,6 +104,7 @@ function App() {
             path="/home"
             element={<Home posts={posts} onSubmit={handleSubmit} />}
           />
+
           <Route path="/profile/:id/posts" element={<Profile />} />
           <Route
             path="users/me"

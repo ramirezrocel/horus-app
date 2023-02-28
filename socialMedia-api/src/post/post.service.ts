@@ -59,7 +59,7 @@ export class PostService {
   }
 
   async findOne(id: number) {
-    return this.postRepository.findOne({ id, userId: this._currentUserId });
+    return this.postRepository.findOne({ id });
   }
 
   async findUserPost(username: string) {
@@ -80,14 +80,15 @@ export class PostService {
       throw new HttpException("Resource not found.", HttpStatus.NOT_FOUND);
     }
 
-    if (updatePostDto.title === "") {
-      throw new HttpException(
-        { message: ["title cannot be empty"] },
-        HttpStatus.BAD_REQUEST
-      );
-    }
+//     if (updatePostDto.title === "") {
+//       throw new HttpException(
+//         { message: ["title cannot be empty"] },
+//         HttpStatus.BAD_REQUEST
+//       );
+//     }
 
     post.value = updatePostDto.title ?? post.value;
+    post.postImageURL = updatePostDto.postImageURL ?? post.postImageURL;
 
     await this.postRepository.save(post);
 
@@ -96,8 +97,8 @@ export class PostService {
 
   async remove(id: number) {
     const post = await this.postRepository.findOne({
-      id,
-      userId: this._currentUserId,
+      id
+      
     });
     if (!post) {
       throw new HttpException("Resource not found.", HttpStatus.NOT_FOUND);

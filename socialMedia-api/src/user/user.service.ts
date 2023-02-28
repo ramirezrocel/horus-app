@@ -168,4 +168,8 @@ export class UserService {
   async findUser(id: number) {
     return this.userRepository.findOne({ where: { id } });
   }
+
+  async findByUsername(username: string) {
+    return this.userRepository.findOne({ where: { username } });
+  }
 }

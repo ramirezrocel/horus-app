@@ -9,6 +9,7 @@ import {
   Param,
   Delete,
 } from "@nestjs/common";
+import { UserService } from "../user/user.service";
 import { ProfilesService } from "./profiles.service";
 import { CreateProfileDto } from "./dto/create-profile.dto";
 import { UpdateProfileDto } from "./dto/update-profile.dto";
@@ -18,7 +19,8 @@ import { PostService } from "../post/post.service";
 export class ProfilesController {
   constructor(
     // private readonly profilesService: ProfilesService,
-    private readonly postService: PostService
+    private readonly postService: PostService,
+    private readonly userService: UserService
   ) {}
 
   // @Post()
@@ -39,6 +41,7 @@ export class ProfilesController {
   @Get(":username")
   findUserDetails(@Param("username") username: string) {
     // return this.profilesService.findUserPost(username);
+    return this.userService.findByUsername(username);
   }
 
   @Get(":username/posts")

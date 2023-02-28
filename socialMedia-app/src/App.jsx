@@ -104,12 +104,12 @@ function App() {
             path="/home"
             element={<Home posts={posts} onSubmit={handleSubmit} />}
           />
-          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/profile/:id/posts" element={<Profile />} />
           <Route
             path="users/me"
             element={<Profile onSubmit={handleSubmit} />}
           />
-           <Route path="/postDetails/:id" element={<PostDetailsPage />} />
+          <Route path="/posts/:id" element={<PostDetailsPage />} />
           <Route path="/editPost/:id" element={<PostForm />} />
         </Route>
 

@@ -20,14 +20,27 @@ import Share from "../../components/share/Share";
 
 const Profile = ({ onSubmit }) => {
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState([]);
   const currentUser = authService.getCurrentUser();
+  const params = useParams();
 
   useEffect(() => {
-    profileService.fetchUserPost(currentUser.username).then((response) => {
+    profileService.fetchUserPost(params.id).then((response) => {
       setPosts(response.data);
       // console.log(response.data);
     });
+    profileService.fetchUserByUsername(params.id).then((response) => {
+      setUser(response.data);
+      console.log(response.data);
+    });
   }, []);
+  console.log(params.id);
+
+  const isMe = () => {
+    if (params.id === currentUser.username) {
+      return <Share onSubmit={onSubmit}></Share>;
+    }
+  };
 
   return (
     <div className="profile">
@@ -37,7 +50,7 @@ const Profile = ({ onSubmit }) => {
           alt=""
           className="cover"
         />
-        <img src={currentUser.imageUrl} alt="" className="profilePic" />
+        <img src={user.imageUrl} alt="" className="profilePic" />
       </div>
       <div className="profileContainer">
         <div className="uInfo">
@@ -53,7 +66,7 @@ const Profile = ({ onSubmit }) => {
             </a>
           </div> */}
           <div className="center">
-            <span>{currentUser.name}</span>
+            <span>{user.name}</span>
 
             <br />
             <a href="http://facebook.com">
@@ -75,7 +88,7 @@ const Profile = ({ onSubmit }) => {
             </div>
           </div>
         </div>
-        <Share onSubmit={onSubmit}></Share>
+        {isMe()}
         <div className="posts">
           {posts.map((post) => (
             <Post post={post} key={post.id} />

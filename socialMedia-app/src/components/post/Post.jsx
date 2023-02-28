@@ -128,7 +128,7 @@ const Post = ({ post }) => {
             <img src={user.imageUrl} alt="" />{" "}
             <div className="details">
               <Link
-                to={`/profile/${post.userId}`}
+                to={`/profile/${user.username}/posts`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 {/* For username of the post owner */}
@@ -137,8 +137,8 @@ const Post = ({ post }) => {
               <span className="date">1 min ago</span>
             </div>
           </div>
-             <Link
-            to={`/postDetails/${post.id}`}
+          <Link
+            to={`/posts/${post.id}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <MoreHorizIcon />

@@ -137,7 +137,12 @@ const Post = ({ post }) => {
               <span className="date">1 min ago</span>
             </div>
           </div>
-          <MoreHorizIcon />
+             <Link
+            to={`/postDetails/${post.id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <MoreHorizIcon />
+          </Link>
         </div>
         <div className="content">
           <p>{post.value}</p>

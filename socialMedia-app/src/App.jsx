@@ -68,11 +68,9 @@ function App() {
   const handleSubmit = (post) => {
     try {
       postService.addPost(post).then((response) => {
-        // console.log(response);
-        // alert("Post shared!");
-      });
-      postService.fetchPosts().then((response) => {
-        setPosts(response.data);
+        postService.fetchPosts().then((response) => {
+          setPosts(response.data);
+        });
       });
     } catch (error) {
       if (error.response && error.response.status === 400) {

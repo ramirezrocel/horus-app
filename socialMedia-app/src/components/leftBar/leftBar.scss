@@ -5,13 +5,10 @@
     flex: 2;
     position: sticky;
     top: 70px;
-    height: calc(100vh - 70px);
+    height: calc(100vh);
     overflow: scroll;
     background-color: themed("bg");
     color: themed("textColor");
-    // border-radius: 20px;
-    // margin-top: 15px;
-    // margin-left: 10px;
 
     @include mobile {
       display: none;

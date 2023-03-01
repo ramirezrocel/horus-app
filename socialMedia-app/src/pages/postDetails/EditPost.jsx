@@ -70,9 +70,11 @@ const EditPost = ({ post }) => {
           >
             <EditIcon />
           </Link>
-          <button onClick={() => handleDeletePost(post.id)}>
-            <DeleteOutlinedIcon color="action" />
-          </button>
+
+          <DeleteOutlinedIcon
+            color="inherit"
+            onClick={() => handleDeletePost(post.id)}
+          />
         </>
       );
     }
@@ -93,7 +95,7 @@ const EditPost = ({ post }) => {
     event.preventDefault();
     try {
       const response = await postService.addComment(form.postId, form.value);
-      // alert("Comment successful");
+      alert("Comment successful");
       postService.fetchCommentsByPost(post.id).then((response) => {
         setComments(response.data);
       });
@@ -178,7 +180,6 @@ const EditPost = ({ post }) => {
           <>
             <div className="comments">
               <form onSubmit={handleCommentSubmit} className="write">
-                {/* <form> */}
                 <img src={currentUser.imageUrl} alt="" />
                 <input
                   name="postId"
@@ -195,7 +196,6 @@ const EditPost = ({ post }) => {
                   required
                 />
                 <button type="submit">Send</button>
-                {/* </form> */}
               </form>
               {comments.map((comment) => (
                 <div className="comment">
@@ -211,7 +211,6 @@ const EditPost = ({ post }) => {
             </div>
           </>
         )}
-        {/* COmment End */}
       </div>
     </div>
   );

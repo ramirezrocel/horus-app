@@ -6,6 +6,7 @@ import * as userService from "../../services/user";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Joi from "joi";
+import "../home/home.scss";
 
 const PostForm = ({ post, initialValue }) => {
   const currentUser = authService.getCurrentUser();
@@ -43,9 +44,9 @@ const PostForm = ({ post, initialValue }) => {
         form.postImageURL,
         form.id
       );
-      //   alert("Post Updated Successfully");
+      alert("Post Updated Successfully");
       console.log(response);
-      alert(response);
+      // alert(response);
       navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 400) {
@@ -85,57 +86,49 @@ const PostForm = ({ post, initialValue }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="share">
-        <div className="container">
-          <div className="top">
-            <img src={currentUser.imageUrl} alt="" />
-            <input
-              name="value"
-              error={!!errors.value}
-              helperText={errors.value}
-              onChange={handleChange}
-              value={form.value}
-              type="text"
-              label="Post"
-              placeholder={`What's on your mind ${currentUser.name}?`}
-            />
-          </div>
-          <hr />
-          <div className="bottom">
-            <div className="left">
+    <div className="home">
+      <form onSubmit={handleSubmit}>
+        <div className="share">
+          <div className="container">
+            <div className="top">
+              <img src={currentUser.imageUrl} alt="" />
               <input
-                name="postImageURL"
-                error={!!errors.postImageURL}
-                helperText={errors.postImageURL}
+                name="value"
+                error={!!errors.value}
+                helperText={errors.value}
                 onChange={handleChange}
-                value={form.postImageURL}
+                value={form.value}
+                type="text"
                 label="Post"
                 placeholder={`What's on your mind ${currentUser.name}?`}
               />
-              {/* <input type="file" id="file" style={{ display: "none" }} /> */}
-              {/* <label htmlFor="file"> */}
-              <div className="item">
-                <img src={Image} alt="" />
-                <span>Add Image</span>
-              </div>
-              {/* </label> */}
-              {/* <div className="item">
-                <img src={Map} alt="" />
-                <span>Add Place</span>
-              </div>
-              <div className="item">
-                <img src={Friend} alt="" />
-                <span>Tag Friends</span>
-              </div> */}
             </div>
-            <div className="right">
-              <button type="submit">Share</button>
+            <hr />
+            <div className="bottom">
+              <div className="left">
+                <input
+                  name="postImageURL"
+                  error={!!errors.postImageURL}
+                  helperText={errors.postImageURL}
+                  onChange={handleChange}
+                  value={form.postImageURL}
+                  label="Post"
+                  placeholder={`What's on your mind ${currentUser.name}?`}
+                />
+
+                <div className="item">
+                  <img src={Image} alt="" />
+                  <span>Add Image</span>
+                </div>
+              </div>
+              <div className="right">
+                <button type="submit">Share</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 

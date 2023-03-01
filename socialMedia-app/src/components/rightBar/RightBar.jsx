@@ -7,15 +7,24 @@ const RightBar = () => {
         <div className="item">
           <span>Recommended Games</span>
           <a href="https://valorantesports.com/schedule">
-            <img className="games" src="../../pictures/valorant.jpg"></img>
+            <img
+              className="games"
+              src="https://media.tenor.com/lTn_Gj0ljzYAAAAd/jett-valorant.gif"
+            ></img>
           </a>
           <a href="https://www.dota2.com/home">
-            <img className="games" src="../../pictures/dota.jpg"></img>
+            <img
+              className="games"
+              src="https://thumbs.gfycat.com/CoordinatedGiganticApatosaur-max-1mb.gif"
+            ></img>
           </a>
         </div>
 
         <a href="https://www.youtube.com/results?search_query=gaming+website+reacthttps://www.youtube.com/gaming">
-          <img className="livestream" src="../../pictures/livestream.jpg"></img>
+          <img
+            className="livestream"
+            src="https://miro.medium.com/max/960/1*1DYqiJbuRBLxl8VsKu68Kw.gif"
+          ></img>
         </a>
 
         <div className="item">

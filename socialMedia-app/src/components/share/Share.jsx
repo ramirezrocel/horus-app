@@ -74,7 +74,6 @@ const Share = ({ onSubmit }) => {
             <div className="left">
               <div className="item">
                 <img src={Image} alt="" />
-                {/* <span>Add Image</span> */}
               </div>
               <div>
                 <input
@@ -86,10 +85,6 @@ const Share = ({ onSubmit }) => {
                 />
               </div>
 
-              {/* <input type="file" id="file" style={{ display: "none" }} /> */}
-              {/* <label htmlFor="file"> */}
-
-              {/* </label> */}
               <div className="item">
                 <img src={Map} alt="" />
                 <span>Add Place</span>

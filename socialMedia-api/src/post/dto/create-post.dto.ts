@@ -6,4 +6,6 @@ export class CreatePostDto {
   value: string;
 
   postImageURL: string;
+
+  username: string;
 }

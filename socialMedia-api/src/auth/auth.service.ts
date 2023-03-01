@@ -1,15 +1,15 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
-import { User } from 'src/user/entities/user.entity';
-import { UserService } from 'src/user/user.service';
-import { LoginDto } from './dto/login.dto';
+import { BadRequestException, Injectable } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import * as bcrypt from "bcrypt";
+import { User } from "src/user/entities/user.entity";
+import { UserService } from "src/user/user.service";
+import { LoginDto } from "./dto/login.dto";
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UserService,
-    private jwtService: JwtService,
+    private jwtService: JwtService
   ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
@@ -21,17 +21,13 @@ export class AuthService {
     return null;
   }
 
-  async login(loginDto: LoginDto) {
+  async loginUsername(loginDto: LoginDto) {
     const user = await this.usersService.findOne(loginDto.username);
     if (user && (await bcrypt.compare(loginDto.password, user.password))) {
       const { password, ...result } = user;
 
       const payload = {
-        username: result.username,
-        sub: result.id,
-        imageUrl: result.imageUrl,
-        name: result.name,
-        email: result.email,
+        id: result.id,
       };
 
       return {
@@ -39,6 +35,22 @@ export class AuthService {
       };
     }
 
-    throw new BadRequestException('Invalid username / password.');
+    throw new BadRequestException("Invalid email / password.");
+  }
+
+  async loginEmail(loginDto: LoginDto) {
+    const user = await this.usersService.findOnewithEmail(loginDto.email);
+    if (user && (await bcrypt.compare(loginDto.password, user.password))) {
+      const { password, ...result } = user;
+
+      const payload = {
+        id: result.id,
+      };
+
+      return {
+        accessToken: this.jwtService.sign(payload),
+      };
+    }
+    throw new BadRequestException("Invalid email / password.");
   }
 }

@@ -2,19 +2,18 @@ import "./share.scss";
 import Image from "../../assets/add-image.png";
 import Map from "../../assets/add-location.png";
 import Friend from "../../assets/add-friend.png";
-import * as authService from "../../services/auth";
 import Joi from "joi";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Share = ({ onSubmit, currentUser }) => {
-  // const currentUser = authService.getCurrentUser();
   const navigate = useNavigate();
 
   /* set form content or input value */
   const [form, setForm] = useState({
     value: "",
     postImageURL: "",
+    username: currentUser.username,
   });
 
   const [errors, setErrors] = useState({});

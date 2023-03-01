@@ -6,8 +6,12 @@ export function register(name, email, username, password, imageUrl) {
   return http.post("/user", { name, email, username, password, imageUrl });
 }
 
-export function login(username, password) {
+export function loginUsername(username, password) {
   return http.post("/auth", { username, password });
+}
+
+export function loginEmail(email, password) {
+  return http.post("/auth", { email, password });
 }
 
 export function logout() {
@@ -20,6 +24,7 @@ export function getAccessToken() {
 
 export function getCurrentUser() {
   const accessToken = localStorage.getItem("accessToken");
+
   if (accessToken) {
     const decoded = jwtDecode(accessToken);
     return decoded;

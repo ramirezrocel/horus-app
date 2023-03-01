@@ -13,7 +13,6 @@ const Home = ({ onSubmit, posts, currentUser }) => {
       setUsers(response.data);
     });
   }, []);
-
   return (
     <div className="home">
       <Stories />

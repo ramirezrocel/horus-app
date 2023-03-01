@@ -13,7 +13,7 @@ const Login = ({ onLogin }) => {
 
   /* set form content or input value */
   const [form, setForm] = useState({
-    username: "",
+    usernameOrEmail: "",
     password: "",
   });
 
@@ -21,15 +21,10 @@ const Login = ({ onLogin }) => {
 
   /*form validation */
   const schema = Joi.object({
-    username: Joi.string().required(),
+    usernameOrEmail: Joi.string().required(),
     password: Joi.string().required(),
   });
 
-  /**
-   * handle every event
-   * set form input values
-   * set errors to form
-   */
   const handleChange = ({ currentTarget: input }) => {
     setForm({
       ...form,
@@ -58,24 +53,8 @@ const Login = ({ onLogin }) => {
   /* submit login form*/
   const handleSubmit = async (event) => {
     event.preventDefault();
-    onLogin(form.username, form.password);
+    onLogin(form.usernameOrEmail, form.password);
   };
-
-  // const handleSubmit = async (event, username, password) => {
-  //   event.preventDefault();
-  //   try {
-  //     const response = await authService.login(username, password);
-  //     localStorage.setItem("accessToken", response.data.accessToken);
-  //     setAccessToken(response.data.accessToken);
-  //     console.log(accessToken);
-  //     alert("login successfully");
-  //     // navigate("/");
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 400) {
-  //       alert(error.response.data.message);
-  //     }
-  //   }
-  // };
 
   return (
     <div className="login">
@@ -98,13 +77,13 @@ const Login = ({ onLogin }) => {
           <form onSubmit={handleSubmit}>
             <div>
               <input
-                name="username"
+                name="usernameOrEmail"
                 onChange={handleChange}
-                value={form.username}
+                value={form.usernameOrEmail}
                 type="text"
-                placeholder="Username"
+                placeholder="Username or Email"
               />
-              <p className="text-error">{errors.username}</p>
+              <p className="text-error">{errors.usernameOrEmail}</p>
             </div>
             <div>
               <input

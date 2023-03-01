@@ -1,5 +1,3 @@
-//fetch-user/me.posts
-
 import {
   Controller,
   Post,
@@ -35,18 +33,14 @@ export class UserController {
 
   @Get()
   findAll(@Request() req) {
-    // this.postService.currentUserId = +req.user.userId;
     return this.userService.findAll();
   }
 
   @Get(":id")
   findOne(@Param("id") id: string, @Request() req) {
-    // this.todoService.currentUserId = +req.user.userId;
     return this.userService.findUser(+id);
   }
 
   @Put(":id")
-  update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
-    // return this.userService.updateIsAdmin(+id, updateUserDto);
-  }
+  update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {}
 }

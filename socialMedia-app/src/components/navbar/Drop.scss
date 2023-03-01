@@ -75,7 +75,7 @@
         width: 120px;
         padding: 15px;
         border-radius: 8px;
-        background-color: white;
+        background-color: themed("bg");
         border: 1px solid gray;
       }
       .dropDownProfile::before {
@@ -88,7 +88,7 @@
         transform: rotate(45deg);
         border-left: 1px solid gray;
         border-top: 1px solid gray;
-        background-color: white;
+        background-color: themed("bg");
       }
       .user {
         display: flex;

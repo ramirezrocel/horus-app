@@ -80,6 +80,7 @@ const Post = ({ post, currentUser }) => {
               setForm({
                 ...form,
                 id: "",
+                value: "",
               });
             });
           });

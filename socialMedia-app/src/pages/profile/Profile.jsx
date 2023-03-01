@@ -68,6 +68,9 @@ const Profile = ({ onSubmit }) => {
                 <LanguageIcon />
                 <span>www.horus.com</span>
               </div>
+              <div className="item">
+                <span>Life feels better If You Play Games…🎮💫😍</span>
+              </div>
             </div>
           </div>
         </div>

@@ -32,12 +32,11 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-
         .games {
           height: 40px;
           width: 40px;
+          padding: 6px;
         }
-
         span {
           font-size: 12px;
         }
@@ -46,6 +45,14 @@
           display: flex;
           align-items: center;
           gap: 10px;
+
+          &:hover {
+            background-color: #f0c24d;
+            padding: 12px;
+            color: #fff;
+            transition: all 0.5s;
+            border-radius: 5px;
+          }
 
           img {
             width: 30px;
@@ -63,6 +70,13 @@
           display: flex;
           align-items: center;
           gap: 10px;
+          &:hover {
+            background-color: #f0c24d;
+            padding: 12px;
+            color: #fff;
+            transition: all 0.3s;
+            border-radius: 5px;
+          }
 
           img {
             width: 30px;

@@ -106,6 +106,9 @@ const PostForm = ({ post, initialValue }) => {
             <hr />
             <div className="bottom">
               <div className="left">
+                <div className="item">
+                  <img src={Image} alt="" />
+                </div>
                 <input
                   name="postImageURL"
                   error={!!errors.postImageURL}
@@ -113,13 +116,8 @@ const PostForm = ({ post, initialValue }) => {
                   onChange={handleChange}
                   value={form.postImageURL}
                   label="Post"
-                  placeholder={`What's on your mind ${currentUser.name}?`}
+                  placeholder={`   Insert ImageUrl`}
                 />
-
-                <div className="item">
-                  <img src={Image} alt="" />
-                  <span>Add Image</span>
-                </div>
               </div>
               <div className="right">
                 <button type="submit">Share</button>

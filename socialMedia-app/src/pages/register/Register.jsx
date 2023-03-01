@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as authService from "../../services/auth";
 import Joi from "joi";
+// const joi = require("joi");
+
 import "./register.scss";
 
 const Register = () => {
+  const joi = require("joi");
+  const { joiPasswordExtendCore } = require("joi-password");
+  const joiPassword = joi.extend(joiPasswordExtendCore);
   const navigate = useNavigate();
 
   /* set form content or input value */
@@ -22,10 +27,30 @@ const Register = () => {
   /*form validation */
   const schema = Joi.object({
     imageUrl: Joi.string().allow("").optional(),
-    email: Joi.string().required(),
-    name: Joi.string().required(),
-    username: Joi.string().required(),
-    password: Joi.string().required(),
+    email: Joi.string()
+      .email({ tlds: { allow: false } })
+      .required(),
+    name: Joi.string().max(50).required(),
+    username: Joi.string().min(5).max(15).required(),
+    password: joiPassword
+      .string()
+      .required()
+      .minOfSpecialCharacters(1)
+      .minOfLowercase(1)
+      .minOfUppercase(1)
+      .minOfNumeric(1)
+      .noWhiteSpaces()
+      .messages({
+        "password.minOfUppercase":
+          "{#label} should contain at least {#min} uppercase character",
+        "password.minOfSpecialCharacters":
+          "{#label} should contain at least {#min} special character",
+        "password.minOfLowercase":
+          "{#label} should contain at least {#min} lowercase character",
+        "password.minOfNumeric":
+          "{#label} should contain at least {#min} numeric character",
+        "password.noWhiteSpaces": "{#label} should not contain white spaces",
+      }),
   });
 
   const handleSubmit = async (event) => {
@@ -47,11 +72,6 @@ const Register = () => {
     }
   };
 
-  /**
-   * handle every event
-   * set form input values
-   * set errors to form
-   */
   const handleChange = ({ currentTarget: input }) => {
     setForm({
       ...form,
@@ -71,7 +91,6 @@ const Register = () => {
     }
   };
 
-  /* button disabled = true or false */
   const isFormInvalid = () => {
     const result = schema.validate(form);
     return !!result.error;
@@ -97,7 +116,7 @@ const Register = () => {
             <h1>Register</h1>
           </div>
           <form onSubmit={handleSubmit} action="" method="">
-            <div style={{ width: 100 + "%" }}>
+            <div className="mb-5" style={{ width: 100 + "%" }}>
               <input
                 name="name"
                 onChange={handleChange}
@@ -108,7 +127,7 @@ const Register = () => {
               />
               <p className="text-error">{errors.name}</p>
             </div>
-            <div>
+            <div className="mb-5">
               <input
                 name="email"
                 onChange={handleChange}
@@ -119,7 +138,7 @@ const Register = () => {
               />
               <p className="text-error">{errors.email}</p>
             </div>
-            <div>
+            <div className="mb-5">
               <input
                 name="username"
                 onChange={handleChange}
@@ -143,7 +162,7 @@ const Register = () => {
             </div>
             <div>
               <label>
-                <small>
+                <small className="text-white">
                   Profile <i>(Optional)</i>
                 </small>
               </label>

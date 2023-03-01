@@ -160,6 +160,10 @@ export class UserService {
     return this.userRepository.findOne({ where: { username } });
   }
 
+  async findOnewithEmail(email: string) {
+    return this.userRepository.findOne({ where: { email } });
+  }
+
   async findMe() {
     return this.userRepository.findOne({ where: { id: this._currentUserId } });
   }

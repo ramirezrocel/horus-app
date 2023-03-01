@@ -1,14 +1,6 @@
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Outlet,
-  Navigate,
-  useNavigate,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { Outlet, Navigate, useNavigate, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import LeftBar from "./components/leftBar/LeftBar";
 import RightBar from "./components/rightBar/RightBar";
@@ -45,9 +37,13 @@ function App() {
     }
   }, []);
 
-  const handleLogin = async (username, password) => {
+  const handleLogin = async (usernameOrEmail, password) => {
     try {
-      const response = await authService.login(username, password);
+      const response = await authService.loginUsername(
+        usernameOrEmail,
+        password
+      );
+
       localStorage.setItem("accessToken", response.data.accessToken);
       setAccessToken(response.data.accessToken);
       alert("Login successfully");
@@ -55,11 +51,34 @@ function App() {
       postService.fetchPosts().then((response) => {
         setPosts(response.data);
       });
-
+      userService.me().then((response) => {
+        setCurrentUser(response.data);
+      });
       navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        alert(error.response.data.message);
+        // alert(error.response.data.message);
+        try {
+          const response = await authService.loginEmail(
+            usernameOrEmail,
+            password
+          );
+          localStorage.setItem("accessToken", response.data.accessToken);
+          setAccessToken(response.data.accessToken);
+          alert("Login successfully");
+
+          postService.fetchPosts().then((response) => {
+            setPosts(response.data);
+          });
+          userService.me().then((response) => {
+            setCurrentUser(response.data);
+          });
+          navigate("/");
+        } catch (error) {
+          if (error.response && error.response.status === 400) {
+            alert(error.response.data.message);
+          }
+        }
       }
     }
   };
@@ -85,7 +104,7 @@ function App() {
     }
   };
 
-  const Layout = () => {
+  const Layout = ({ currentUser }) => {
     return (
       <div className={`theme-${darkMode ? "dark" : "light"}`}>
         <Navbar onLogout={handleLogout} currentUser={currentUser} />
@@ -103,7 +122,13 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={accessToken ? <Layout /> : <Navigate to="/login" />}
+          element={
+            accessToken ? (
+              <Layout currentUser={currentUser} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         >
           <Route path="/" element={<Navigate to="/home" />} />
           <Route

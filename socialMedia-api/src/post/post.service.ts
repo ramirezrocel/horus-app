@@ -1,5 +1,3 @@
-//fetch-user/me.posts
-
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { User } from "src/user/entities/user.entity";
 import { Repository } from "typeorm";
@@ -36,7 +34,7 @@ export class PostService {
     post.value = createPostDto.value;
     post.postImageURL = createPostDto.postImageURL;
     post.userId = this._currentUserId;
-    post.username = this._currentUsername;
+    post.username = createPostDto.username;
 
     return this.postRepository.save(post);
   }
@@ -51,7 +49,6 @@ export class PostService {
 
   async findAll(): Promise<Post[]> {
     return this.postRepository.find({
-      // where: { userId: this._currentUserId },
       order: {
         id: "DESC",
       },
@@ -80,13 +77,6 @@ export class PostService {
       throw new HttpException("Resource not found.", HttpStatus.NOT_FOUND);
     }
 
-//     if (updatePostDto.title === "") {
-//       throw new HttpException(
-//         { message: ["title cannot be empty"] },
-//         HttpStatus.BAD_REQUEST
-//       );
-//     }
-
     post.value = updatePostDto.value ?? post.value;
     post.postImageURL = updatePostDto.postImageURL ?? post.postImageURL;
 
@@ -97,8 +87,7 @@ export class PostService {
 
   async remove(id: number) {
     const post = await this.postRepository.findOne({
-      id
-      
+      id,
     });
     if (!post) {
       throw new HttpException("Resource not found.", HttpStatus.NOT_FOUND);

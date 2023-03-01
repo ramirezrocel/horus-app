@@ -1,4 +1,3 @@
-import Post from "../../components/post/Post";
 import "../home/home.scss";
 import { useEffect, useState } from "react";
 import * as postService from "../../services/post";

@@ -32,19 +32,16 @@ export class PostController {
   @Post()
   create(@Body() createPostDto: CreatePostDto, @Request() req) {
     this.postService.currentUserId = +req.user.userId;
-    this.postService.currentUsername = req.user.username;
     return this.postService.create(createPostDto);
   }
 
   @Get()
   findAll(@Request() req) {
-    // this.postService.currentUserId = +req.user.userId;
     return this.postService.findAll();
   }
 
   @Get(":id")
   findOne(@Param("id") id: string, @Request() req) {
-    //this.postService.currentUserId = +req.user.userId;
     return this.postService.findOne(+id);
   }
 
@@ -61,7 +58,6 @@ export class PostController {
 
   @Delete(":id")
   remove(@Param("id") id: string, @Request() req) {
-    //this.postService.currentUserId = +req.user.userId;
     return this.postService.remove(+id);
   }
 
@@ -81,7 +77,6 @@ export class PostController {
   // for deleting comment
   @Delete(":id/comments/:commentId")
   removeComment(@Param("commentId") commentId: string, @Request() req) {
-    // this.postService.currentUserId = +req.user.userId;
     return this.commentService.remove(+commentId);
   }
 

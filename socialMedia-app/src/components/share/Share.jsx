@@ -72,19 +72,23 @@ const Share = ({ onSubmit }) => {
           <hr />
           <div className="bottom">
             <div className="left">
-              <input
-                name="postImageURL"
-                onChange={handleChange}
-                value={form.postImageURL}
-                label="Post"
-                placeholder={`Insert ImageUrl ${currentUser.name}?`}
-              />
-              {/* <input type="file" id="file" style={{ display: "none" }} /> */}
-              {/* <label htmlFor="file"> */}
               <div className="item">
                 <img src={Image} alt="" />
-                <span>Add Image</span>
+                {/* <span>Add Image</span> */}
               </div>
+              <div>
+                <input
+                  name="postImageURL"
+                  onChange={handleChange}
+                  value={form.postImageURL}
+                  label="Post"
+                  placeholder={`Insert ImageUrl`}
+                />
+              </div>
+
+              {/* <input type="file" id="file" style={{ display: "none" }} /> */}
+              {/* <label htmlFor="file"> */}
+
               {/* </label> */}
               <div className="item">
                 <img src={Map} alt="" />

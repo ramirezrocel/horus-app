@@ -153,13 +153,6 @@ const Post = ({ post }) => {
           </a>
         </>
       );
-    } else {
-      return (
-        <>
-          <a className="edit-ms text-muted">Edit</a>
-          <a className="delete-ms text-muted">Delete</a>
-        </>
-      );
     }
   };
 

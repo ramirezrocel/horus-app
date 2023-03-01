@@ -33,9 +33,6 @@
         line-height: 50px;
       }
 
-      p {
-      }
-
       span {
         font-size: 14px;
       }
@@ -112,6 +109,14 @@
         }
       }
     }
+  }
+
+  .mb-5 {
+    margin-bottom: 5px;
+  }
+
+  .text-white {
+    color: white;
   }
 }
 

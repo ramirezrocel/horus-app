@@ -2,7 +2,7 @@ import React from "react";
 import "./Drop.scss";
 import { Button } from "@mui/material";
 
-const DropDownProfile = (onLogout) => {
+const DropDownProfile = ({ onLogout }) => {
   return (
     <div className="flex flex-col dropDownProfile">
       <ul className="flex flex-col gap-4">

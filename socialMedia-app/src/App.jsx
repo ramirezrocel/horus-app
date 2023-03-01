@@ -18,6 +18,7 @@ import "./style.scss";
 import { useContext, useEffect, useState } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import * as authService from "../src/services/auth";
+import * as userService from "../src/services/user";
 import NotFound from "./pages/notFound/NotFound";
 import * as postService from "../src/services/post";
 import PostDetailsPage from "./pages/postDetails/PostDetailsPage";
@@ -31,11 +32,15 @@ function App() {
   /* get logged user data from local storage */
   const [accessToken, setAccessToken] = useState(authService.getAccessToken());
   const [posts, setPosts] = useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
 
   useEffect(() => {
     if (accessToken) {
       postService.fetchPosts().then((response) => {
         setPosts(response.data);
+      });
+      userService.me().then((response) => {
+        setCurrentUser(response.data);
       });
     }
   }, []);
@@ -70,6 +75,7 @@ function App() {
       postService.addPost(post).then((response) => {
         postService.fetchPosts().then((response) => {
           setPosts(response.data);
+          alert("Shared Post!");
         });
       });
     } catch (error) {
@@ -82,9 +88,9 @@ function App() {
   const Layout = () => {
     return (
       <div className={`theme-${darkMode ? "dark" : "light"}`}>
-        <Navbar onLogout={handleLogout} />
+        <Navbar onLogout={handleLogout} currentUser={currentUser} />
         <div style={{ display: "flex" }}>
-          <LeftBar />
+          <LeftBar currentUser={currentUser} />
           <div style={{ flex: 6 }}>{<Outlet />}</div>
           <RightBar />
         </div>
@@ -102,16 +108,33 @@ function App() {
           <Route path="/" element={<Navigate to="/home" />} />
           <Route
             path="/home"
-            element={<Home posts={posts} onSubmit={handleSubmit} />}
+            element={
+              <Home
+                posts={posts}
+                onSubmit={handleSubmit}
+                currentUser={currentUser}
+              />
+            }
           />
 
-          <Route path="/profile/:id/posts" element={<Profile />} />
+          <Route
+            path="/profile/:id/posts"
+            element={<Profile currentUser={currentUser} />}
+          />
           <Route
             path="users/me"
-            element={<Profile onSubmit={handleSubmit} />}
+            element={
+              <Profile onSubmit={handleSubmit} currentUser={currentUser} />
+            }
           />
-          <Route path="/posts/:id" element={<PostDetailsPage />} />
-          <Route path="/editPost/:id" element={<PostForm />} />
+          <Route
+            path="/posts/:id"
+            element={<PostDetailsPage currentUser={currentUser} />}
+          />
+          <Route
+            path="/editPost/:id"
+            element={<PostForm currentUser={currentUser} />}
+          />
         </Route>
 
         <Route path="/login" element={<Login onLogin={handleLogin} />} />

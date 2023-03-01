@@ -5,7 +5,7 @@ import * as postService from "../../services/post";
 import { useParams, useNavigate } from "react-router-dom";
 import EditPost from "./EditPost";
 
-const PostDetailsPage = () => {
+const PostDetailsPage = ({ currentUser }) => {
   const [posts, setPosts] = useState([]);
   const params = useParams();
 
@@ -14,11 +14,10 @@ const PostDetailsPage = () => {
       setPosts(response.data);
     });
   }, []);
-  console.log(params);
 
   return (
     <div className="home">
-      <EditPost post={posts} key={posts.id} />
+      <EditPost post={posts} key={posts.id} currentUser={currentUser} />
     </div>
   );
 };

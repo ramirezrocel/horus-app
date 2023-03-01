@@ -161,7 +161,6 @@ export class UserService {
   }
 
   async findMe() {
-    // where: { userId: this._currentUserId },
     return this.userRepository.findOne({ where: { id: this._currentUserId } });
   }
 

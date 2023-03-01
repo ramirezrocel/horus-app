@@ -1,15 +1,12 @@
 import "../../components/share/share.scss";
 import Image from "../../assets/add-image.png";
-import * as authService from "../../services/auth";
 import * as postService from "../../services/post";
-import * as userService from "../../services/user";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Joi from "joi";
 import "../home/home.scss";
 
-const PostForm = ({ post, initialValue }) => {
-  const currentUser = authService.getCurrentUser();
+const PostForm = ({ initialValue, currentUser }) => {
   const navigate = useNavigate();
   const params = useParams();
 
@@ -45,9 +42,7 @@ const PostForm = ({ post, initialValue }) => {
         form.id
       );
       alert("Post Updated Successfully");
-      console.log(response);
-      // alert(response);
-      navigate("/");
+      navigate(`/posts/${form.id}`);
     } catch (error) {
       if (error.response && error.response.status === 400) {
         alert(error.response.data.message);
@@ -55,11 +50,6 @@ const PostForm = ({ post, initialValue }) => {
     }
   };
 
-  /**
-   * handle every event
-   * set form input values
-   * set errors to form
-   */
   const handleChange = ({ currentTarget: input }) => {
     setForm({
       ...form,

@@ -5,12 +5,9 @@ import Events from "../../assets/calendar.png";
 import Home from "../../assets/home.png";
 import Messages from "../../assets/chat.png";
 import Tournaments from "../../assets/tournament.png";
-import * as authService from "../../services/auth";
 import { Link } from "react-router-dom";
 
-const LeftBar = () => {
-  const currentUser = authService.getCurrentUser();
-
+const LeftBar = ({ currentUser }) => {
   return (
     <div className="leftBar">
       <div className="container">

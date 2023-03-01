@@ -11,15 +11,11 @@ import { Button } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
-// import { AuthContext } from "../../context/authContext";
-import * as authService from "../../services/auth";
 import DropDownProfile from "./DropDownProfile";
 import * as profileService from "../../services/profile";
 
-const Navbar = ({ onLogout }) => {
+const Navbar = ({ onLogout, currentUser }) => {
   const { toggle, darkMode } = useContext(DarkModeContext);
-  // const { currentUser } = useContext(AuthContext);
-  const currentUser = authService.getCurrentUser();
   const [openProfile, setOpenProfile] = useState(false);
   const [query, setQuery] = useState([]);
   const [search, setSearch] = useState({ username: "" });
@@ -30,8 +26,7 @@ const Navbar = ({ onLogout }) => {
       setQuery(response.data);
     });
   }, []);
-  console.log(search);
-  
+
   return (
     <div className="navbar">
       <div className="left">
@@ -56,16 +51,15 @@ const Navbar = ({ onLogout }) => {
           <HomeOutlinedIcon />
         </Link>
 
-        
         <div className="user">
-         <img
+          <img
             src={currentUser.imageUrl}
             alt=""
             className="text -2x1 font-semibold cursor-pointer"
             onClick={() => setOpenProfile((prev) => !prev)}
           ></img>
         </div>
- {openProfile && <DropDownProfile onLogout={onLogout} />}
+        {openProfile && <DropDownProfile onLogout={onLogout} />}
       </div>
     </div>
   );

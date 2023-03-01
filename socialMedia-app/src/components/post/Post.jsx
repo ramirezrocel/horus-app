@@ -29,7 +29,7 @@ const Post = ({ post }) => {
       setUser(response.data);
     });
 
-    commentService.fetchCommentsByPost(post.id).then((response) => {
+    postService.fetchCommentsByPost(post.id).then((response) => {
       setComments(response.data);
     });
 

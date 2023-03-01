@@ -27,3 +27,23 @@ export function updatePost(value, postImageURL, id) {
 export function deletePost(id) {
   return http.delete(`/posts/${id}`);
 }
+
+export function fetchCommentsByPost(id) {
+  return http.get(`/comment/${id}`);
+}
+
+export function addComment(postId, value) {
+  return http.post(`/posts/${postId}/comments`, { postId, value });
+}
+export function deleteComment(id, commentId) {
+  return http.delete(`/posts/${id}/comments/${commentId}`, { commentId });
+}
+
+export function updateComment(postId, id, value) {
+  return http.put(`/posts/${postId}/comments/${id}/update`, {
+    postId,
+    id,
+    value,
+  });
+  // return commentId;
+}

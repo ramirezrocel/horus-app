@@ -19,6 +19,7 @@ import { UpdatePostDto } from "./dto/update-post.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { CommentService } from "../comment/comment.service";
 import { CreateCommentDto } from "../comment/dto/create-comment.dto";
+import { UpdateCommentDto } from "../comment/dto/update-comment.dto";
 
 @UseGuards(JwtAuthGuard)
 @Controller("posts")
@@ -47,7 +48,7 @@ export class PostController {
     return this.postService.findOne(+id);
   }
 
-   //for update post
+  //for update post
   @Put(":id")
   update(
     @Param("id") id: string,
@@ -77,9 +78,21 @@ export class PostController {
     return this.commentService.create(createCommentDto);
   }
 
+  // for deleting comment
   @Delete(":id/comments/:commentId")
-  remove1(@Param("id") id: string, @Request() req) {
-    this.postService.currentUserId = +req.user.userId;
-    return this.postService.remove(+id);
+  removeComment(@Param("commentId") commentId: string, @Request() req) {
+    // this.postService.currentUserId = +req.user.userId;
+    return this.commentService.remove(+commentId);
+  }
+
+  //for update comment
+  @Put(":postId/comments/:id/update")
+  updateComment(
+    @Param("id") id: string,
+    @Body() updateCommentDto: UpdateCommentDto,
+    @Request() req
+  ) {
+    this.commentService.currentUserId = +req.user.userId;
+    return this.commentService.update(+id, updateCommentDto);
   }
 }

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { Post } from "src/post/entities/post.entity";
 import { User } from "src/user/entities/user.entity";
 import { Repository } from "typeorm";
@@ -75,7 +75,6 @@ export class CommentService {
     comment.userId = this._currentUserId;
 
     return this.commentRepository.save(comment);
-    // return "This action adds a new comment";
   }
 
   async findAll(id: number): Promise<Comment[]> {
@@ -86,11 +85,36 @@ export class CommentService {
     return `This action returns a #${id} comment`;
   }
 
-  update(id: number, updateCommentDto: UpdateCommentDto) {
-    return `This action updates a #${id} comment`;
+  // update(id: number, updateCommentDto: UpdateCommentDto) {
+  //   return `This action updates a #${id} comment`;
+  // }
+
+  async update(id: number, updateCommentDto: UpdateCommentDto) {
+    let post = await this.commentRepository.findOne({
+      id,
+      userId: this._currentUserId,
+    });
+    if (!post) {
+      throw new HttpException("Resource not found.", HttpStatus.NOT_FOUND);
+    }
+
+    post.value = updateCommentDto.value ?? post.value;
+
+    await this.commentRepository.save(post);
+
+    return post;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} comment`;
+  async remove(id: number) {
+    const comment = await this.commentRepository.findOne({
+      id,
+    });
+    if (!comment) {
+      throw new HttpException("Resource not found.", HttpStatus.NOT_FOUND);
+    }
+
+    await this.commentRepository.remove(comment);
+
+    return { ...comment, id };
   }
 }

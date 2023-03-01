@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as userService from "../../services/user";
 import * as commentService from "../../services/comment";
+import * as postService from "../../services/post";
 import * as authService from "../../services/auth";
 import Joi from "joi";
 
@@ -73,11 +74,21 @@ const Post = ({ post }) => {
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await commentService.addComment(form.postId, form.value);
-      // alert("Comment successful");
-      commentService.fetchCommentsByPost(post.id).then((response) => {
-        setComments(response.data);
-      });
+      if (form.id) {
+        postService
+          .updateComment(form.postId, form.id, form.value)
+          .then((response) => {
+            postService.fetchCommentsByPost(post.id).then((response) => {
+              setComments(response.data);
+            });
+          });
+      } else {
+        await postService.addComment(form.postId, form.value);
+        postService.fetchCommentsByPost(post.id).then((response) => {
+          setComments(response.data);
+        });
+      }
+      getNumberOfComments();
       setForm({
         ...form,
         value: "",
@@ -89,11 +100,6 @@ const Post = ({ post }) => {
     }
   };
 
-  /**
-   * handle every event
-   * set form input values
-   * set errors to form
-   */
   const handleChange = ({ currentTarget: input }) => {
     setForm({
       ...form,
@@ -113,10 +119,62 @@ const Post = ({ post }) => {
     }
   };
 
+  const handleCommentDelete = async (id, commentId) => {
+    try {
+      await postService.deleteComment(id, commentId).then((response) => {
+        postService.fetchCommentsByPost(post.id).then((response) => {
+          setComments(response.data);
+        });
+        getNumberOfComments();
+      });
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        alert("Data might have already been deleted");
+      }
+    }
+  };
+
+  const isUserComment = (userId, postId, commentId, commentValue) => {
+    if (userId === currentUser.sub) {
+      return (
+        <>
+          <a
+            className="edit-ms"
+            onClick={() => editComment(commentId, commentValue)}
+          >
+            Edit
+          </a>
+          <a
+            aria-disabled="true"
+            className="delete-ms"
+            onClick={() => handleCommentDelete(postId, commentId)}
+          >
+            Delete
+          </a>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <a className="edit-ms text-muted">Edit</a>
+          <a className="delete-ms text-muted">Delete</a>
+        </>
+      );
+    }
+  };
+
   /* button disabled = true or false */
   const isFormInvalid = () => {
     const result = schema.validate(form);
     return !!result.error;
+  };
+
+  const editComment = async (id, commentValue) => {
+    setForm({
+      ...form,
+      value: commentValue,
+      id: id,
+    });
   };
 
   return (
@@ -167,6 +225,7 @@ const Post = ({ post }) => {
         {commentOpen && (
           <>
             <div className="comments">
+              {/* Comment Form */}
               <form onSubmit={handleCommentSubmit} className="write">
                 {/* <form> */}
                 <img src={currentUser.imageUrl} alt="" />
@@ -184,9 +243,24 @@ const Post = ({ post }) => {
                   placeholder="write a comment"
                   required
                 />
-                <button type="submit">Send</button>
+                {form.id ? (
+                  <>
+                    <input
+                      name="id"
+                      onChange={handleChange}
+                      value={form.id}
+                      type="hidden"
+                      required
+                    />
+                    <button type="submit">Update</button>
+                  </>
+                ) : (
+                  <button type="submit">Send</button>
+                )}
+
                 {/* </form> */}
               </form>
+              {/* Comment Form */}
               {comments.map((comment) => (
                 <div className="comment">
                   <img src={getImage(comment.userId)} alt="" />
@@ -194,7 +268,16 @@ const Post = ({ post }) => {
                   <div className="info">
                     <span>{getUsername(comment.userId)}</span>
                     <p>{comment.value}</p>
+                    <small className="edit-delete">
+                      {isUserComment(
+                        comment.userId,
+                        comment.postId,
+                        comment.id,
+                        comment.value
+                      )}
+                    </small>
                   </div>
+
                   <span className="date">1 hour ago</span>
                 </div>
               ))}

@@ -4,7 +4,11 @@
   @include themify($themes) {
     padding: 20px 70px;
     background-color: themed("bgSoft");
-
+    height: calc(100vh);
+    overflow: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     @include mobile {
       padding: 10px;
     }

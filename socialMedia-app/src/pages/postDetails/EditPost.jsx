@@ -49,7 +49,7 @@ const EditPost = ({ post }) => {
       setUser(response.data);
     });
 
-    commentService.fetchCommentsByPost(post.id).then((response) => {
+    postService.fetchCommentsByPost(post.id).then((response) => {
       setComments(response.data);
     });
 
@@ -92,9 +92,9 @@ const EditPost = ({ post }) => {
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await commentService.addComment(form.postId, form.value);
+      const response = await postService.addComment(form.postId, form.value);
       // alert("Comment successful");
-      commentService.fetchCommentsByPost(post.id).then((response) => {
+      postService.fetchCommentsByPost(post.id).then((response) => {
         setComments(response.data);
       });
       setForm({

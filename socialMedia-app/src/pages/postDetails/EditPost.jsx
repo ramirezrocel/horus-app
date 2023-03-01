@@ -5,24 +5,22 @@ import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { Link } from "react-router-dom";
-import Comments from "../../components/comments/Comments";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as userService from "../../services/user";
 import * as postService from "../../services/post";
 import EditIcon from "@mui/icons-material/Edit";
-import * as authService from "../../services/auth";
-import * as commentService from "../../services/comment";
 import Joi from "joi";
 
-const EditPost = ({ post }) => {
+const EditPost = ({ post, currentUser }) => {
   const [commentOpen, setCommentOpen] = useState(true);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const currentUser = authService.getCurrentUser();
   const [comments, setComments] = useState([]);
   const [users, setUsers] = useState([]);
   const [errors, setErrors] = useState({});
+  //TEMPORARY
+  const liked = false;
 
   const schema = Joi.object({
     value: Joi.string().required(),
@@ -57,11 +55,9 @@ const EditPost = ({ post }) => {
       setUsers(response.data);
     });
   }, []);
-  //TEMPORARY
-  const liked = false;
 
   const isUser = () => {
-    if (post.userId === currentUser.sub) {
+    if (post.userId === currentUser.id) {
       return (
         <>
           <Link
@@ -94,11 +90,26 @@ const EditPost = ({ post }) => {
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await postService.addComment(form.postId, form.value);
-      alert("Comment successful");
-      postService.fetchCommentsByPost(post.id).then((response) => {
-        setComments(response.data);
-      });
+      if (form.id) {
+        postService
+          .updateComment(form.postId, form.id, form.value)
+          .then((response) => {
+            postService.fetchCommentsByPost(post.id).then((response) => {
+              setComments(response.data);
+              setForm({
+                ...form,
+                id: "",
+                value: "",
+              });
+            });
+          });
+      } else {
+        await postService.addComment(form.postId, form.value);
+        postService.fetchCommentsByPost(post.id).then((response) => {
+          setComments(response.data);
+        });
+      }
+      getNumberOfComments();
       setForm({
         ...form,
         value: "",
@@ -129,12 +140,59 @@ const EditPost = ({ post }) => {
     }
   };
 
-  useEffect(() => {
-    userService.fetchUser(post.userId).then((response) => {
-      setUser(response.data);
-    });
-  }, []);
+  const getNumberOfComments = () => {
+    if (comments.length > 1) {
+      return `${comments.length} Comments`;
+    } else if (comments.length == 1) {
+      return `${comments.length} Comment`;
+    } else {
+      return "Comment";
+    }
+  };
 
+  const handleCommentDelete = async (id, commentId) => {
+    try {
+      await postService.deleteComment(id, commentId).then((response) => {
+        postService.fetchCommentsByPost(post.id).then((response) => {
+          setComments(response.data);
+        });
+        getNumberOfComments();
+      });
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        alert("Data might have already been deleted");
+      }
+    }
+  };
+
+  const editComment = async (id, commentValue) => {
+    setForm({
+      ...form,
+      value: commentValue,
+      id: id,
+    });
+  };
+  const isUserComment = (userId, postId, commentId, commentValue) => {
+    if (userId === currentUser.id) {
+      return (
+        <>
+          <a
+            className="edit-ms"
+            onClick={() => editComment(commentId, commentValue)}
+          >
+            Edit
+          </a>
+          <a
+            aria-disabled="true"
+            className="delete-ms"
+            onClick={() => handleCommentDelete(postId, commentId)}
+          >
+            Delete
+          </a>
+        </>
+      );
+    }
+  };
   // console.log(username);
 
   return (
@@ -164,11 +222,11 @@ const EditPost = ({ post }) => {
         <div className="info">
           <div className="item">
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            12 Likes
+            {12} Likes
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
-            12 Comments
+            {getNumberOfComments()}
           </div>
           <div className="item">
             <ShareOutlinedIcon />
@@ -195,7 +253,20 @@ const EditPost = ({ post }) => {
                   placeholder="write a comment"
                   required
                 />
-                <button type="submit">Send</button>
+                {form.id ? (
+                  <>
+                    <input
+                      name="id"
+                      onChange={handleChange}
+                      value={form.id}
+                      type="hidden"
+                      required
+                    />
+                    <button type="submit">Update</button>
+                  </>
+                ) : (
+                  <button type="submit">Send</button>
+                )}
               </form>
               {comments.map((comment) => (
                 <div className="comment">
@@ -204,6 +275,14 @@ const EditPost = ({ post }) => {
                   <div className="info">
                     <span>{getUsername(comment.userId)}</span>
                     <p>{comment.value}</p>
+                    <small className="edit-delete">
+                      {isUserComment(
+                        comment.userId,
+                        comment.postId,
+                        comment.id,
+                        comment.value
+                      )}
+                    </small>
                   </div>
                   <span className="date">1 hour ago</span>
                 </div>

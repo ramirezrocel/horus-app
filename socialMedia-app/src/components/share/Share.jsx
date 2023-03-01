@@ -7,8 +7,8 @@ import Joi from "joi";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Share = ({ onSubmit }) => {
-  const currentUser = authService.getCurrentUser();
+const Share = ({ onSubmit, currentUser }) => {
+  // const currentUser = authService.getCurrentUser();
   const navigate = useNavigate();
 
   /* set form content or input value */

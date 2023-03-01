@@ -12,3 +12,9 @@ export function fetchUser(id) {
 export function me() {
   return http.get("user/me");
 }
+
+export function getCurrentUser() {
+  http.get("user/me").then((response) => {
+    return response.data;
+  });
+}

@@ -9,13 +9,10 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as userService from "../../services/user";
-import * as commentService from "../../services/comment";
 import * as postService from "../../services/post";
-import * as authService from "../../services/auth";
 import Joi from "joi";
 
-const Post = ({ post }) => {
-  const currentUser = authService.getCurrentUser();
+const Post = ({ post, currentUser }) => {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
   const [commentOpen, setCommentOpen] = useState(false);
@@ -80,6 +77,10 @@ const Post = ({ post }) => {
           .then((response) => {
             postService.fetchCommentsByPost(post.id).then((response) => {
               setComments(response.data);
+              setForm({
+                ...form,
+                id: "",
+              });
             });
           });
       } else {
@@ -135,7 +136,7 @@ const Post = ({ post }) => {
   };
 
   const isUserComment = (userId, postId, commentId, commentValue) => {
-    if (userId === currentUser.sub) {
+    if (userId === currentUser.id) {
       return (
         <>
           <a

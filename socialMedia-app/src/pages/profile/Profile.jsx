@@ -1,24 +1,17 @@
 import "./profile.scss";
 import "../../components/posts/posts.scss";
-import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
 import { useParams } from "react-router-dom";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import PlaceIcon from "@mui/icons-material/Place";
-import Posts from "../../components/posts/Posts";
 import LanguageIcon from "@mui/icons-material/Language";
 import Post from "../../components/post/Post";
-import * as authService from "../../services/auth";
-import * as postService from "../../services/post";
 import * as profileService from "../../services/profile";
 import { useState } from "react";
 import { useEffect } from "react";
 import Share from "../../components/share/Share";
 
-const Profile = ({ onSubmit }) => {
+const Profile = ({ onSubmit, currentUser }) => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState([]);
-  const currentUser = authService.getCurrentUser();
   const { id } = useParams();
 
   const paramUsername = () => {
@@ -40,7 +33,7 @@ const Profile = ({ onSubmit }) => {
 
   const isMe = () => {
     if (paramUsername() === currentUser.username) {
-      return <Share onSubmit={onSubmit}></Share>;
+      return <Share onSubmit={onSubmit} currentUser={currentUser}></Share>;
     }
   };
 
@@ -77,7 +70,7 @@ const Profile = ({ onSubmit }) => {
         {isMe()}
         <div className="posts">
           {posts.map((post) => (
-            <Post post={post} key={post.id} />
+            <Post post={post} key={post.id} currentUser={currentUser} />
           ))}
         </div>
       </div>

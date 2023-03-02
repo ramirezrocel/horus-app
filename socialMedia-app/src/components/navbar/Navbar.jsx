@@ -13,19 +13,20 @@ import { useContext, useEffect, useState } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
 import DropDownProfile from "./DropDownProfile";
 import * as profileService from "../../services/profile";
+import SearchBar from "./SearchBar";
 
 const Navbar = ({ onLogout, currentUser }) => {
   const { toggle, darkMode } = useContext(DarkModeContext);
   const [openProfile, setOpenProfile] = useState(false);
-  const [query, setQuery] = useState([]);
-  const [search, setSearch] = useState({ username: "" });
+//   const [query, setQuery] = useState([]);
+//   const [search, setSearch] = useState({ username: "" });
   const params = useParams();
 
-  useEffect(() => {
-    profileService.fetchUsers().then((response) => {
-      setQuery(response.data);
-    });
-  }, []);
+//   useEffect(() => {
+//     profileService.fetchUsers().then((response) => {
+//       setQuery(response.data);
+//     });
+//   }, []);
 
   return (
     <div className="navbar">
@@ -36,11 +37,9 @@ const Navbar = ({ onLogout, currentUser }) => {
           {/* <span>HORUS</span> */}
         </Link>
 
-        <div className="search">
-          <SearchOutlinedIcon />
-          <input type="text" placeholder="Search..." />
-        </div>
+        
       </div>
+<SearchBar />
       <div className="right">
         {darkMode ? (
           <WbSunnyOutlinedIcon onClick={toggle} />

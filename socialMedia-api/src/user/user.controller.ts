@@ -13,7 +13,6 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { UseGuards } from "@nestjs/common/decorators";
 
-@UseGuards(JwtAuthGuard)
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -26,6 +25,7 @@ export class UserController {
 
   //OK -ROUTES
   @Get("/me")
+  @UseGuards(JwtAuthGuard)
   findMe(@Request() req) {
     this.userService.currentUserId = +req.user.userId;
     return this.userService.findMe();

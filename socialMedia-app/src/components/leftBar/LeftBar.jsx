@@ -1,10 +1,10 @@
 import "./leftBar.scss";
 import Friends from "../../assets/invite.png";
 import Groups from "../../assets/customers.png";
-import Events from "../../assets/calendar.png";
 import Home from "../../assets/home.png";
 import Messages from "../../assets/chat.png";
 import Tournaments from "../../assets/tournament.png";
+import News from "../../assets/newspaper.png";
 import { Link } from "react-router-dom";
 
 const LeftBar = ({ currentUser }) => {
@@ -30,6 +30,15 @@ const LeftBar = ({ currentUser }) => {
               <span>Home</span>
             </Link>
           </div>
+          <div className="item">
+            <img src={News} alt="" />
+            <a
+              href="https://pinoygamer.ph/news/"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <span>Game News</span>
+            </a>
+          </div>
 
           <div className="item">
             <img src={Friends} alt="" />
@@ -47,10 +56,6 @@ const LeftBar = ({ currentUser }) => {
           <div className="item">
             <img src={Tournaments} alt="" />
             <span>Tournaments</span>
-          </div>
-          <div className="item">
-            <img src={Events} alt="" />
-            <span>Events</span>
           </div>
         </div>
         <hr />

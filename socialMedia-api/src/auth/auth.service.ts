@@ -34,8 +34,7 @@ export class AuthService {
         accessToken: this.jwtService.sign(payload),
       };
     }
-
-    throw new BadRequestException("Invalid email / password.");
+    throw new BadRequestException("Invalid usernameOrEmail / password.");
   }
 
   async loginEmail(loginDto: LoginDto) {
@@ -51,6 +50,6 @@ export class AuthService {
         accessToken: this.jwtService.sign(payload),
       };
     }
-    throw new BadRequestException("Invalid email / password.");
+    throw new BadRequestException("Invalid usernameOrEmail / password.");
   }
 }

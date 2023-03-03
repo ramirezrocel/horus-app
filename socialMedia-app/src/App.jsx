@@ -46,7 +46,7 @@ function App() {
 
       localStorage.setItem("accessToken", response.data.accessToken);
       setAccessToken(response.data.accessToken);
-      alert("Login successfully");
+      // alert("Login successfully");
 
       postService.fetchPosts().then((response) => {
         setPosts(response.data);
@@ -57,7 +57,7 @@ function App() {
       navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        // alert(error.response.data.message);
+        alert(error.response.data.message);
         try {
           const response = await authService.loginEmail(
             usernameOrEmail,
@@ -65,7 +65,7 @@ function App() {
           );
           localStorage.setItem("accessToken", response.data.accessToken);
           setAccessToken(response.data.accessToken);
-          alert("Login successfully");
+          // alert("Login successfully");
 
           postService.fetchPosts().then((response) => {
             setPosts(response.data);
@@ -94,7 +94,7 @@ function App() {
       postService.addPost(post).then((response) => {
         postService.fetchPosts().then((response) => {
           setPosts(response.data);
-          alert("Shared Post!");
+          // alert("Shared Post!");
         });
       });
     } catch (error) {

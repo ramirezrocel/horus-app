@@ -8,6 +8,8 @@ import {
   ManyToOne,
   OneToOne,
   JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { User } from "../../user/entities/user.entity";
 
@@ -28,13 +30,12 @@ export class Post {
   @Column()
   postImageURL: string;
 
-  // @OneToOne(() => User)
-  // @JoinColumn({ name: "userId" })
-  // user: User;
+  @CreateDateColumn()
+  created_date: Date;
+
+  @UpdateDateColumn()
+  updated_date: Date;
 
   @ManyToOne(() => User, (user) => user.posts)
   user: User;
-
-  // @ManyToOne(() => Comment, (comment) => comment.post)
-  // comment: Comment[];
 }

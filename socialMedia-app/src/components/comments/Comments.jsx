@@ -1,6 +1,6 @@
 import "./comments.scss";
 import * as authService from "../../services/auth";
-//ajshdjkahkjdhaskhd
+
 const Comments = ({ post }) => {
   const currentUser = authService.getCurrentUser();
   const comments = [
@@ -33,7 +33,6 @@ const Comments = ({ post }) => {
             <span>{comment.name}</span>
             <p>{comment.desc}</p>
           </div>
-          <span className="date">1 hour ago</span>
         </div>
       ))}
     </div>

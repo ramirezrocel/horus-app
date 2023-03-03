@@ -210,7 +210,7 @@ const EditPost = ({ post, currentUser }) => {
                 {/* For username of the post owner */}
                 <span className="name">{user.username}</span>
               </Link>
-              <span className="date">1 min ago</span>
+              <span className="date"></span>
             </div>
           </div>
           <div>{isUser()}</div>
@@ -284,7 +284,7 @@ const EditPost = ({ post, currentUser }) => {
                       )}
                     </small>
                   </div>
-                  <span className="date">1 hour ago</span>
+                  <span className="date"></span>
                 </div>
               ))}
             </div>

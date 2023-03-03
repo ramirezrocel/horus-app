@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import * as userService from "../../services/user";
 import * as postService from "../../services/post";
 import Joi from "joi";
+import Date from "../Date/Date";
 
 const Post = ({ post, currentUser }) => {
   const navigate = useNavigate();
@@ -171,7 +172,6 @@ const Post = ({ post, currentUser }) => {
       id: id,
     });
   };
-
   return (
     <div className="post">
       <div className="container">
@@ -187,7 +187,9 @@ const Post = ({ post, currentUser }) => {
                 {/* For username of the post owner */}
                 <span className="name">{user.username}</span>
               </Link>
-              <span className="date">1 min ago</span>
+              <span className="date">
+                <Date dateString={post.created_date} />
+              </span>
             </div>
           </div>
           <Link
@@ -209,10 +211,6 @@ const Post = ({ post, currentUser }) => {
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
             {getNumberOfComments()}
-          </div>
-          <div className="item">
-            <ShareOutlinedIcon />
-            Share
           </div>
         </div>
 
@@ -273,7 +271,9 @@ const Post = ({ post, currentUser }) => {
                     </small>
                   </div>
 
-                  <span className="date">1 hour ago</span>
+                  <span className="date">
+                    <Date dateString={post.created_date} />
+                  </span>
                 </div>
               ))}
             </div>

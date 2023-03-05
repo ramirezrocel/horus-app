@@ -22,7 +22,7 @@ const Post = ({ post, currentUser }) => {
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState([]);
   //TEMPORARY
-  const liked = false;
+  const [liked, setLiked] = useState([]);
 
   useEffect(() => {
     userService.fetchUser(post.userId).then((response) => {
@@ -39,6 +39,15 @@ const Post = ({ post, currentUser }) => {
 
     likeService.fetchLikes(post.id).then((response) => {
       setLikes(response.data);
+    });
+
+    likeService.isLiked(post.id).then((response) => {
+      const data = response.data;
+      if (data != "") {
+        setLiked(true);
+      } else {
+        setLiked(false);
+      }
     });
   }, []);
 
@@ -60,6 +69,27 @@ const Post = ({ post, currentUser }) => {
     } else {
       return "Comment";
     }
+  };
+
+  const addLike = (postId) => {
+    likeService.addLike(postId).then((response) => {
+      likeService.fetchLikes(post.id).then((response) => {
+        setLikes(response.data);
+
+        getNumberOfLikes();
+        setLiked(true);
+      });
+    });
+  };
+  const removeLiked = (postId) => {
+    likeService.removeLiked(postId).then((response) => {
+      likeService.fetchLikes(post.id).then((response) => {
+        setLikes(response.data);
+
+        getNumberOfLikes();
+        setLiked(false);
+      });
+    });
   };
 
   const getImage = (id) => {
@@ -189,6 +219,8 @@ const Post = ({ post, currentUser }) => {
     });
   };
 
+  // console.log(liked);
+
   return (
     <div className="post">
       <div className="container">
@@ -222,7 +254,13 @@ const Post = ({ post, currentUser }) => {
         </div>
         <div className="info">
           <div className="item">
-            {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
+            {/* {console.log(liked)} */}
+            {liked ? (
+              <FavoriteOutlinedIcon onClick={() => removeLiked(post.id)} />
+            ) : (
+              <FavoriteBorderOutlinedIcon onClick={() => addLike(post.id)} />
+            )}
+
             {getNumberOfLikes()}
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { Inject } from "@nestjs/common/decorators";
 import { Repository } from "typeorm";
 import { CreateLikeDto } from "./dto/create-like.dto";
@@ -45,6 +45,14 @@ export class LikesService {
     });
   }
 
+  async isliked(postId: number) {
+    const exist = this.likeRepository.find({
+      where: { postId, userId: this._currentUserId },
+    });
+
+    return exist != undefined ? exist : false;
+  }
+
   findAll() {
     return `This action returns all likes`;
   }
@@ -57,7 +65,16 @@ export class LikesService {
     return `This action updates a #${id} like`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} like`;
+  async remove(id: number) {
+    const like = await this.likeRepository.findOne({
+      postId: id,
+    });
+    if (!like) {
+      throw new HttpException("Resource not found.", HttpStatus.NOT_FOUND);
+    }
+
+    await this.likeRepository.remove(like);
+
+    return { ...like, id };
   }
 }

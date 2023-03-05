@@ -11,6 +11,7 @@ import * as userService from "../../services/user";
 import * as postService from "../../services/post";
 import EditIcon from "@mui/icons-material/Edit";
 import Joi from "joi";
+import * as likeService from "../../services/like";
 import Date from "../../components/date/date";
 
 const EditPost = ({ post, currentUser }) => {
@@ -20,8 +21,9 @@ const EditPost = ({ post, currentUser }) => {
   const [comments, setComments] = useState([]);
   const [users, setUsers] = useState([]);
   const [errors, setErrors] = useState({});
+  const [likes, setLikes] = useState([]);
   //TEMPORARY
-  const liked = false;
+  const [liked, setLiked] = useState([]);
 
   const schema = Joi.object({
     value: Joi.string().required(),
@@ -52,8 +54,21 @@ const EditPost = ({ post, currentUser }) => {
       setComments(response.data);
     });
 
+    likeService.fetchLikes(post.id).then((response) => {
+      setLikes(response.data);
+    });
+
     userService.fetchUsers().then((response) => {
       setUsers(response.data);
+    });
+
+    likeService.isLiked(post.id).then((response) => {
+      const data = response.data;
+      if (data != "") {
+        setLiked(true);
+      } else {
+        setLiked(false);
+      }
     });
   }, []);
 
@@ -194,6 +209,35 @@ const EditPost = ({ post, currentUser }) => {
       );
     }
   };
+  const getNumberOfLikes = () => {
+    if (likes.length > 1) {
+      return `${likes.length} Likes`;
+    } else if (likes.length == 1) {
+      return `${likes.length} Like`;
+    } else {
+      return "Like";
+    }
+  };
+  const addLike = (postId) => {
+    likeService.addLike(postId).then((response) => {
+      likeService.fetchLikes(post.id).then((response) => {
+        setLikes(response.data);
+
+        getNumberOfLikes();
+        setLiked(true);
+      });
+    });
+  };
+  const removeLiked = (postId) => {
+    likeService.removeLiked(postId).then((response) => {
+      likeService.fetchLikes(post.id).then((response) => {
+        setLikes(response.data);
+
+        getNumberOfLikes();
+        setLiked(false);
+      });
+    });
+  };
   // console.log(username);
 
   return (
@@ -222,9 +266,13 @@ const EditPost = ({ post, currentUser }) => {
         </div>
         <div className="info">
           <div className="item">
-            {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            {12} Likes
+            {liked ? (
+              <FavoriteOutlinedIcon onClick={() => removeLiked(post.id)} />
+            ) : (
+              <FavoriteBorderOutlinedIcon onClick={() => addLike(post.id)} />
+            )}
           </div>
+          {getNumberOfLikes()}
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
             {getNumberOfComments()}

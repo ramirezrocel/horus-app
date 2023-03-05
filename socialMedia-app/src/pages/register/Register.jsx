@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as authService from "../../services/auth";
 import Joi, { ref } from "joi";
+import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // const joi = require("joi");
 
 import "./register.scss";
@@ -40,10 +42,12 @@ const Register = () => {
       .minOfLowercase(1)
       .minOfUppercase(1)
       .minOfNumeric(1)
+      .min(8)
       .noWhiteSpaces()
       .messages({
         "password.minOfUppercase":
           "{#label} should contain at least {#min} uppercase character",
+          "password.min": "{#label} should be at least {#min} characters long",
         "password.minOfSpecialCharacters":
           "{#label} should contain at least {#min} special character",
         "password.minOfLowercase":
@@ -72,7 +76,10 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        alert(error.response.data.message);
+          // alert(error.response.data.message);
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     }
   };
@@ -106,10 +113,14 @@ const Register = () => {
       <div className="card">
         <div className="left">
           <h1>HORUS</h1>
-          <h2>Best Playing Game Today.</h2>
-          <p>
+          <h2>A Platform Made For You.</h2>
+          {/*<p>
             Games always believe that an epic win is possible and that it’s
             always worth trying and trying now.
+          </p> */}
+           <p>
+            A place where you can connect with fellow gamers and be yourself or
+            someone... greater.
           </p>
           <span>Do you have an account?</span>
           <Link to="/login">
@@ -195,6 +206,7 @@ const Register = () => {
             <button disabled={isFormInvalid()} type="submit">
               Register
             </button>
+            <ToastContainer />
           </form>
         </div>
       </div>

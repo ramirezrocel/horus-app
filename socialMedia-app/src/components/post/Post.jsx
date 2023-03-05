@@ -4,18 +4,17 @@ import "../comments/comments.scss";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
-import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as userService from "../../services/user";
 import * as postService from "../../services/post";
 import * as likeService from "../../services/like";
 import Joi from "joi";
-import Date from "../date/date";
+import Date from "../date/Date";
+// import Comments from "../comments/Comments";
 
 const Post = ({ post, currentUser }) => {
-  const navigate = useNavigate();
   const [comments, setComments] = useState([]);
   const [commentOpen, setCommentOpen] = useState(false);
   const [users, setUsers] = useState([]);
@@ -43,18 +42,18 @@ const Post = ({ post, currentUser }) => {
 
     likeService.isLiked(post.id).then((response) => {
       const data = response.data;
-      if (data != "") {
+      if (data !== "") {
         setLiked(true);
       } else {
         setLiked(false);
       }
     });
-  }, []);
+  }, [post.id, post.userId]);
 
   const getNumberOfLikes = () => {
     if (likes.length > 1) {
       return `${likes.length} Likes`;
-    } else if (likes.length == 1) {
+    } else if (likes.length === 1) {
       return `${likes.length} Like`;
     } else {
       return "Like";
@@ -64,7 +63,7 @@ const Post = ({ post, currentUser }) => {
   const getNumberOfComments = () => {
     if (comments.length > 1) {
       return `${comments.length} Comments`;
-    } else if (comments.length == 1) {
+    } else if (comments.length === 1) {
       return `${comments.length} Comment`;
     } else {
       return "Comment";
@@ -81,6 +80,7 @@ const Post = ({ post, currentUser }) => {
       });
     });
   };
+
   const removeLiked = (postId) => {
     likeService.removeLiked(postId).then((response) => {
       likeService.fetchLikes(post.id).then((response) => {
@@ -271,6 +271,13 @@ const Post = ({ post, currentUser }) => {
 
         {/* COmment Start */}
         {commentOpen && (
+          // (
+          //   <Comments
+          //     post={post}
+          //     currentUser={currentUser}
+          //     comments_={comments}
+          //   />
+          // )
           <>
             <div className="comments">
               {/* Comment Form */}

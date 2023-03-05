@@ -12,9 +12,9 @@ import * as postService from "../../services/post";
 import EditIcon from "@mui/icons-material/Edit";
 import Joi from "joi";
 import * as likeService from "../../services/like";
-import Date from "../../components/date/date";
+import Date from "../../components/date/Date";
 
-const EditPost = ({ post, currentUser }) => {
+const EditPost = ({ post /*, currentUser */ }) => {
   const [commentOpen, setCommentOpen] = useState(true);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
@@ -24,28 +24,11 @@ const EditPost = ({ post, currentUser }) => {
   const [likes, setLikes] = useState([]);
   //TEMPORARY
   const [liked, setLiked] = useState([]);
-
-  const schema = Joi.object({
-    value: Joi.string().required(),
-    postId: Joi.string().required(),
-  });
-
-  const [form, setForm] = useState({
-    value: "",
-    postId: post.id,
-  });
-
-  const getImage = (id) => {
-    const data = users.find((user) => user.id === id);
-    return data["imageUrl"];
-  };
-
-  const getUsername = (id) => {
-    const data = users.find((user) => user.id === id);
-    return data["username"];
-  };
-
+  const [currentUser, setCurrentUser] = useState([]);
   useEffect(() => {
+    userService.me().then((response) => {
+      setCurrentUser(response.data);
+    });
     userService.fetchUser(post.userId).then((response) => {
       setUser(response.data);
     });
@@ -64,13 +47,33 @@ const EditPost = ({ post, currentUser }) => {
 
     likeService.isLiked(post.id).then((response) => {
       const data = response.data;
-      if (data != "") {
+      if (data !== "") {
         setLiked(true);
       } else {
         setLiked(false);
       }
     });
-  }, []);
+  }, [post.id, post.userId]);
+
+  const [form, setForm] = useState({
+    value: "",
+    postId: post.id,
+  });
+
+  const schema = Joi.object({
+    value: Joi.string().required(),
+    postId: Joi.string().required(),
+  });
+
+  const getImage = (id) => {
+    const data = users.find((user) => user.id === id);
+    return data["imageUrl"];
+  };
+
+  const getUsername = (id) => {
+    const data = users.find((user) => user.id === id);
+    return data["username"];
+  };
 
   const isUser = () => {
     if (post.userId === currentUser.id) {
@@ -159,7 +162,7 @@ const EditPost = ({ post, currentUser }) => {
   const getNumberOfComments = () => {
     if (comments.length > 1) {
       return `${comments.length} Comments`;
-    } else if (comments.length == 1) {
+    } else if (comments.length === 1) {
       return `${comments.length} Comment`;
     } else {
       return "Comment";

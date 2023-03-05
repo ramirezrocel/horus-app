@@ -8,6 +8,7 @@ import { PostModule } from "./post/post.module";
 
 import { CommentModule } from "./comment/comment.module";
 import { ProfilesModule } from "./profiles/profiles.module";
+import { LikesModule } from './likes/likes.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ProfilesModule } from "./profiles/profiles.module";
     UserModule,
     CommentModule,
     ProfilesModule,
+    LikesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

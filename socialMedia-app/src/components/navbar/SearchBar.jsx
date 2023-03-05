@@ -49,7 +49,11 @@ const SearchBar = () => {
                     to={`/profile/${user.username}/posts`}
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    {user.username}
+                    <div className="user">
+                      <img className="imgS" src={user.imageUrl} alt="" />
+                      {user.username}
+                    </div>
+                    <hr></hr>
                   </Link>
                 </div>
               );

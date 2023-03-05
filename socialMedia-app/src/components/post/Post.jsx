@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as userService from "../../services/user";
 import * as postService from "../../services/post";
+import * as likeService from "../../services/like";
 import Joi from "joi";
 import Date from "../Date/Date";
 
@@ -19,6 +20,7 @@ const Post = ({ post, currentUser }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
+  const [likes, setLikes] = useState([]);
   //TEMPORARY
   const liked = false;
 
@@ -34,7 +36,21 @@ const Post = ({ post, currentUser }) => {
     userService.fetchUsers().then((response) => {
       setUsers(response.data);
     });
+
+    likeService.fetchLikes(post.id).then((response) => {
+      setLikes(response.data);
+    });
   }, []);
+
+  const getNumberOfLikes = () => {
+    if (likes.length > 1) {
+      return `${likes.length} Likes`;
+    } else if (likes.length == 1) {
+      return `${likes.length} Like`;
+    } else {
+      return "Like";
+    }
+  };
 
   const getNumberOfComments = () => {
     if (comments.length > 1) {
@@ -172,6 +188,7 @@ const Post = ({ post, currentUser }) => {
       id: id,
     });
   };
+
   return (
     <div className="post">
       <div className="container">
@@ -206,7 +223,7 @@ const Post = ({ post, currentUser }) => {
         <div className="info">
           <div className="item">
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            12 Likes
+            {getNumberOfLikes()}
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />

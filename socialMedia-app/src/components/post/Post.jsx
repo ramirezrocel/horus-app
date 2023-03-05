@@ -12,7 +12,7 @@ import * as userService from "../../services/user";
 import * as postService from "../../services/post";
 import * as likeService from "../../services/like";
 import Joi from "joi";
-import Date from "../Date/Date";
+import Date from "../date/date";
 
 const Post = ({ post, currentUser }) => {
   const navigate = useNavigate();
@@ -327,7 +327,7 @@ const Post = ({ post, currentUser }) => {
                   </div>
 
                   <span className="date">
-                    <Date dateString={post.created_date} />
+                    <Date dateString={comment.created_date} />
                   </span>
                 </div>
               ))}

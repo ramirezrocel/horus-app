@@ -11,6 +11,7 @@ import * as userService from "../../services/user";
 import * as postService from "../../services/post";
 import EditIcon from "@mui/icons-material/Edit";
 import Joi from "joi";
+import Date from "../../components/date/date";
 
 const EditPost = ({ post, currentUser }) => {
   const [commentOpen, setCommentOpen] = useState(true);
@@ -284,7 +285,9 @@ const EditPost = ({ post, currentUser }) => {
                       )}
                     </small>
                   </div>
-                  <span className="date"></span>
+                  <span className="date">
+                    <Date dateString={comment.created_date} />
+                  </span>
                 </div>
               ))}
             </div>

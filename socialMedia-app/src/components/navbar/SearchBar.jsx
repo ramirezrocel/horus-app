@@ -1,5 +1,5 @@
 import React from "react";
-import "./Search.css";
+import "./Search.scss";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as profileService from "../../services/profile";
@@ -8,11 +8,15 @@ const SearchBar = () => {
   const [query, setQuery] = useState([]);
   const [search, setSearch] = useState({ username: "" });
   const params = useParams();
+  // const [img, setImg] = useState([]);
 
   useEffect(() => {
     profileService.fetchUsers().then((response) => {
       setQuery(response.data);
     });
+    // profileService.fetchUsers().then((response) => {
+    //   setQuery(response.data);
+    // });
   }, []);
 
   return (
@@ -49,7 +53,11 @@ const SearchBar = () => {
                     to={`/profile/${user.username}/posts`}
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    {user.username}
+                    <div className="user">
+                      <img className="imgS" src={user.imageUrl} alt="" />
+                      {user.username}
+                    </div>
+                    <hr></hr>
                   </Link>
                 </div>
               );

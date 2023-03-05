@@ -15,6 +15,8 @@ import NotFound from "./pages/notFound/NotFound";
 import * as postService from "../src/services/post";
 import PostDetailsPage from "./pages/postDetails/PostDetailsPage";
 import PostForm from "./pages/postDetails/PostForm";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 function App() {
   const navigate = useNavigate();
@@ -46,13 +48,17 @@ function App() {
 
       localStorage.setItem("accessToken", response.data.accessToken);
       setAccessToken(response.data.accessToken);
-      alert("Login successfully");
+
+      // alert("Login successfully");
 
       postService.fetchPosts().then((response) => {
         setPosts(response.data);
       });
       userService.me().then((response) => {
         setCurrentUser(response.data);
+      });
+      toast.success("Login Successful", {
+        position: toast.POSITION.TOP_CENTER,
       });
       navigate("/");
     } catch (error) {
@@ -73,10 +79,16 @@ function App() {
           userService.me().then((response) => {
             setCurrentUser(response.data);
           });
+          toast.success("Login Successful", {
+            position: toast.POSITION.TOP_CENTER,
+          });
           navigate("/");
         } catch (error) {
           if (error.response && error.response.status === 400) {
-            alert(error.response.data.message);
+            // alert(error.response.data.message);
+            return toast.error(error.response.data.message, {
+              position: toast.POSITION.TOP_CENTER,
+            });
           }
         }
       }
@@ -95,6 +107,9 @@ function App() {
         postService.fetchPosts().then((response) => {
           setPosts(response.data);
           alert("Shared Post!");
+          toast.success("Post Successful", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         });
       });
     } catch (error) {
@@ -126,11 +141,14 @@ function App() {
             accessToken ? (
               <Layout currentUser={currentUser} />
             ) : (
-              <Navigate to="/login" />
+              <>
+                <Navigate to="/login" />
+              </>
             )
           }
         >
           <Route path="/" element={<Navigate to="/home" />} />
+
           <Route
             path="/home"
             element={

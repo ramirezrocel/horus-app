@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
 import * as authService from "../../services/auth";
 import "./login.scss";
+import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // import { AuthContextProvider } from "../../context/authContext";
 
 const Login = ({ onLogin }) => {
@@ -58,10 +61,11 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="login">
+      <ToastContainer />
       <div className="card">
         <div className="left">
           <h1>HORUS</h1>
-          <h2>Best Playing Game Today.</h2>
+          <h2>A Platform Made For You.</h2>
           <p>
             Games always believe that an epic win is possible and that it’s
             always worth trying and trying now.

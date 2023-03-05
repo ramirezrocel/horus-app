@@ -5,6 +5,8 @@ import Friend from "../../assets/add-friend.png";
 import Joi from "joi";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Share = ({ onSubmit, currentUser }) => {
   const navigate = useNavigate();
@@ -56,6 +58,7 @@ const Share = ({ onSubmit, currentUser }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="share">
+        <ToastContainer></ToastContainer>
         <div className="container">
           <div className="top">
             <img src={currentUser.imageUrl} alt="" />

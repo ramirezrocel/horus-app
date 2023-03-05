@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as authService from "../../services/auth";
-import Joi from "joi";
+import Joi, { ref } from "joi";
 // const joi = require("joi");
 
 import "./register.scss";
@@ -20,6 +20,7 @@ const Register = () => {
     username: "",
     imageUrl: "",
     password: "",
+    confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -51,6 +52,10 @@ const Register = () => {
           "{#label} should contain at least {#min} numeric character",
         "password.noWhiteSpaces": "{#label} should not contain white spaces",
       }),
+    confirmPassword: Joi.string()
+      .required()
+      .valid(form.password)
+      .messages({ "any.only": "Confirm Password must match password" }),
   });
 
   const handleSubmit = async (event) => {
@@ -149,7 +154,7 @@ const Register = () => {
               />
               <p className="text-error">{errors.username}</p>
             </div>
-            <div>
+            <div className="mb-5">
               <input
                 name="password"
                 onChange={handleChange}
@@ -159,6 +164,17 @@ const Register = () => {
                 required
               />
               <p className="text-error">{errors.password}</p>
+            </div>
+            <div className="mb-5">
+              <input
+                name="confirmPassword"
+                onChange={handleChange}
+                value={form.confirmPassword}
+                type="password"
+                placeholder="Confirm Password"
+                required
+              />
+              <p className="text-error">{errors.confirmPassword}</p>
             </div>
             <div>
               <label>

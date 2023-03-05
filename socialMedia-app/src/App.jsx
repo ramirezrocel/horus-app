@@ -15,6 +15,8 @@ import NotFound from "./pages/notFound/NotFound";
 import * as postService from "../src/services/post";
 import PostDetailsPage from "./pages/postDetails/PostDetailsPage";
 import PostForm from "./pages/postDetails/PostForm";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 function App() {
   const navigate = useNavigate();
@@ -76,7 +78,10 @@ function App() {
           navigate("/");
         } catch (error) {
           if (error.response && error.response.status === 400) {
-            alert(error.response.data.message);
+            //alert(error.response.data.message);
+            return toast.error(error.response.data.message, {
+              position: toast.POSITION.TOP_CENTER,
+            });
           }
         }
       }

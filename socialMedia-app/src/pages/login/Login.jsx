@@ -4,6 +4,8 @@ import Joi from "joi";
 import * as authService from "../../services/auth";
 import "./login.scss";
 // import { AuthContextProvider } from "../../context/authContext";
+import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -58,6 +60,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="login">
+    <ToastContainer />
       <div className="card">
         <div className="left">
           <h1>HORUS</h1>

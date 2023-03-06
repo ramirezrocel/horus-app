@@ -42,7 +42,7 @@ const Post = ({ post, currentUser }) => {
 
     likeService.isLiked(post.id).then((response) => {
       const data = response.data;
-      if (data !== "") {
+      if (data != "") {
         setLiked(true);
       } else {
         setLiked(false);

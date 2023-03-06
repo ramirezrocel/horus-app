@@ -15,7 +15,7 @@ const LeftBar = ({ currentUser }) => {
           <div className="user">
             <img src={currentUser.imageUrl} alt="" />
             <Link
-              to={`users/me`}
+              to={`profile/me`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
               <span>{currentUser.name}</span>

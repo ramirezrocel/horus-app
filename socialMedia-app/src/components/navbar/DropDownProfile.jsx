@@ -6,7 +6,10 @@ const DropDownProfile = ({ onLogout }) => {
   return (
     <div className="flex flex-col dropDownProfile">
       <ul className="flex flex-col gap-4">
-        <Button style={{ textDecoration: "none", color: "inherit" }}>
+        <Button
+          href="profile/me"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           Profile
         </Button>{" "}
         <hr />{" "}

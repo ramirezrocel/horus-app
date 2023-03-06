@@ -59,7 +59,7 @@ function App() {
       navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        alert(error.response.data.message);
+        // alert(error.response.data.message);
         try {
           const response = await authService.loginEmail(
             usernameOrEmail,
@@ -152,7 +152,7 @@ function App() {
             element={<Profile currentUser={currentUser} />}
           />
           <Route
-            path="users/me"
+            path="profile/me"
             element={
               <Profile onSubmit={handleSubmit} currentUser={currentUser} />
             }
